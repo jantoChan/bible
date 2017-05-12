@@ -4,11 +4,14 @@ var CompressionWebpackPlugin = require('compression-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    'main': './src/main.js',
+    'admin': './src/admin.js'
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -17,9 +20,9 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
+            'scss': 'style-loader!css-loader!sass-loader'
           }
-          // other vue-loader options go here
-        }
+        }      
       },
       {
         test: /\.js$/,
@@ -29,6 +32,10 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
