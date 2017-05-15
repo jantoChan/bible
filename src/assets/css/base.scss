@@ -5,3 +5,37 @@
 .g-ml20{
   margin-right: 20px;
 }
+
+.g-mb10{
+  margin-bottom: 10px;
+}
+
+
+.list-item{
+  @at-root #{&}__icon{
+    color: #8492a6;
+    font-size: 2em;
+    display: table-cell;
+    margin: 0;
+    padding-top: .07142857em;
+    padding-right: .28571429em;
+    vertical-align: top;
+    -webkit-transition: color .1s ease;
+    transition: color .1s ease;
+  }
+  @at-root #{&}__ct{
+    display: table-cell;
+    padding: 0 0 0 .5em;
+    vertical-align: top;
+    line-height: 1.14285714em;
+  }
+  @at-root #{&}__header{
+    display: block;
+    cursor: pointer;
+    color: #4183c4;
+  }
+  @at-root #{&}__description{
+    display: block;
+    color: rgba(0,0,0,.7);
+  }
+}

@@ -8,6 +8,8 @@ Vue.use(ElementUI)
 import VueRouter from 'vue-router';
 import Home from "./components/exhibition/home/index.vue";
 import File from "./components/exhibition/file/index.vue";
+import Tag from "./components/exhibition/tag/index.vue";
+import About from "./components/exhibition/about/index.vue";
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -22,6 +24,16 @@ const router = new VueRouter({
       path: '/file',
       name: 'file',
       component: File
+    },
+    {
+      path: '/tag',
+      name: 'tag',
+      component: Tag
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     }
   ]
 })
