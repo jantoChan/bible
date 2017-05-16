@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="main-cnt">
+    <div class="main-cnt g-pt40">
       <div class="page-container page-component">
         <div class="nav-header">
             <i class="iconfont nav-header__icon" @click="is_nav = !is_nav">&#xe6fa;</i>

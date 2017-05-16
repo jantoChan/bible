@@ -14,7 +14,7 @@
             </div>
           </div>
         </div>
-        <router-view class="contents g-mt20"></router-view>
+        <router-view class="contents"></router-view>
       </div>
     </div>
     <div v-else>

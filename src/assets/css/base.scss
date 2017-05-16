@@ -14,6 +14,14 @@
   margin-bottom: 10px;
 }
 
+.g-pt40{
+  padding-top: 40px;
+}
+
+.g-pt60{
+  padding-top: 60px;
+}
+
 
 .list-item{
   @at-root #{&}__icon{
