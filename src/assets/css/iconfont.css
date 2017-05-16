@@ -1,12 +1,11 @@
 @font-face {
   font-family: 'iconfont';  /* project id 300765 */
-  src: url('//at.alicdn.com/t/font_wo6ecl5xpcdkuik9.eot');
-  src: url('//at.alicdn.com/t/font_wo6ecl5xpcdkuik9.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_wo6ecl5xpcdkuik9.woff') format('woff'),
-  url('//at.alicdn.com/t/font_wo6ecl5xpcdkuik9.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_wo6ecl5xpcdkuik9.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_e0zbcd4tgqcwhfr.eot');
+  src: url('//at.alicdn.com/t/font_e0zbcd4tgqcwhfr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_e0zbcd4tgqcwhfr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_e0zbcd4tgqcwhfr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_e0zbcd4tgqcwhfr.svg#iconfont') format('svg');
 }
-
 .iconfont {
   font-family:"iconfont" !important;
   font-weight: normal;
@@ -18,8 +17,10 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  font-size:12px;
+  font-size:inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-password:before { content: "\e82b";}
+.icon-personal-center:before { content: "\e70b"; }

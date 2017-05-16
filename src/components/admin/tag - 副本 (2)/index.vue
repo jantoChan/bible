@@ -32,8 +32,8 @@
             is_loading: false,
             username: '',
             password: '',
-            loading: true,
-            color: '#bfcbd9'
+            loading: true
+            color: '#bfcbd9',
           }
         },
         methods: {

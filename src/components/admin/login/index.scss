@@ -1,0 +1,44 @@
+.login{
+  padding-left:40px;
+  padding-right:40px;
+  max-width: 375px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .iconfont{
+    font-size: 14px;  
+  }
+
+  @at-root #{&}__logo{
+    margin: 40px auto;
+    width: 80px;
+    text-align: center;
+    line-height: 80px;
+  }
+
+  @at-root #{&}__btn{
+    width: 100%;
+    display: block;
+    border: none;
+    background: -webkit-linear-gradient(left,#bfcbd9,#ccc) no-repeat;
+    background: linear-gradient(left,#bfcbd9,#ccc) no-repeat;
+    color: #fff;
+    box-shadow: 0 0.08rem 0.16rem #bfcbd9;
+
+    &:hover,
+    &:active{
+      border: none;
+      color: #fff;
+    }
+  }
+  
+  @at-root #{&}__input{
+    input:focus{
+      border-color: #999; 
+    }
+  }
+
+ .g-mb20{
+    margin-bottom: 20px;
+  }
+}
