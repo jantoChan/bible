@@ -10,6 +10,10 @@
   margin-top: 20px;
 }
 
+.g-mb20{
+  margin-bottom: 20px;
+}
+
 .g-mb10{
   margin-bottom: 10px;
 }
@@ -23,6 +27,7 @@
 }
 
 
+/* 列表样式 */
 .list-item{
   @at-root #{&}__icon{
     color: #8492a6;
