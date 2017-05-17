@@ -111,7 +111,7 @@ html{
     border-bottom: 1px solid #f1f1f1;
     color: #909090;
     height: 60px;
-    z-index: 10;
+    z-index: 8;
 
     @at-root #{&}__ct{
       display: -webkit-box;
@@ -269,10 +269,6 @@ html{
         font-size: 12px;
         color: #777;
       }
-    }
-
-    .contents{
-      margin-top: 20px;
     }
   }
 

@@ -42,7 +42,7 @@
               </transition>
             </div>
           </el-col>
-          <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-18 contents">
+          <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-18 contents g-mt20">
             <router-view></router-view>
           </el-col>
         </el-row> 

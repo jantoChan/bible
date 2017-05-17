@@ -7,14 +7,15 @@
             <div class="header__logo">管理后台</div>
             <div class="header__main-nav">
               <div class="header__navigation">
-                <router-link class="header__nav-item" to="/admin/article"><i class="iconfont">&#xe6a1;</i></router-link>
+                <router-link class="header__nav-item" to="/admin/file"><i class="iconfont">&#xe6a1;</i></router-link>
                 <router-link class="header__nav-item" to="/admin/tag"><i class="iconfont">&#xe6c0;</i></router-link>
                 <router-link class="header__nav-item" to="/admin/about"><i class="iconfont">&#xe726;</i></router-link>
               </div>
             </div>
           </div>
         </div>
-        <router-view class="contents"></router-view>
+        <router-view class="contents g-mt20"></router-view>
+        <!-- <textarea id="editor"></textarea> -->
       </div>
     </div>
     <div v-else>
