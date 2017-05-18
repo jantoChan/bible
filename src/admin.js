@@ -2,7 +2,7 @@ import Vue from 'vue'
 import ElementUI  from 'element-ui'
 import App from './Admin.vue'
 import 'element-ui/lib/theme-default/index.css'
-
+import './main.scss'
 Vue.use(ElementUI)
 
 import VueRouter from 'vue-router'

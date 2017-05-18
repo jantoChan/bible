@@ -24,10 +24,6 @@
   </div>
 </template>
 
-<style lang="scss">
-    @import "./main.scss"
-</style>
-
 <script>
 import Login from "./components/admin/login/index.vue"
 export default {
