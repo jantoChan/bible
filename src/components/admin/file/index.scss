@@ -2,4 +2,11 @@
   .list-item:not(:last-child){
     padding-bottom: 10px;
   }
+
+  @at-root #{&}__action{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 10;
+  }
 }

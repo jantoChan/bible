@@ -8,6 +8,7 @@ Vue.use(ElementUI)
 import VueRouter from 'vue-router'
 import tagManage from "./components/admin/tag/index.vue"
 import fileManage from "./components/admin/file/index.vue"
+import articleEdit from "./components/admin/article/edit.vue"
 
 Vue.use(VueRouter)
 const router = new VueRouter({
@@ -22,15 +23,14 @@ const router = new VueRouter({
       path: '/admin/file',
       name: 'file',
       component: fileManage
+    },
+    {
+      path: '/admin/article/edit',
+      name: 'articleEdit',
+      component: articleEdit
     }
   ]
 })
-
-import SimpleMDE from "simplemde"
-import "./assets/css/simplemde.css"
-import marked from 'marked'
-import hljs from "highlight.js"
-import "./assets/css/monokai-sublime.css"
 
 new Vue({
     el: '#app',
@@ -43,7 +43,6 @@ new Vue({
     mounted: function()  {
       var vm=this;
       var dom=document.getElementById('editor');
-      console.log(dom);
       if (!dom) {
         return false;
       }
@@ -65,7 +64,6 @@ new Vue({
                     smartLists: true,
                     smartypants: true,
                     highlight: function (code) {
-                      console.log(code);
                         return hljs.highlightAuto(code).value;
                     }
                 });
@@ -73,6 +71,7 @@ new Vue({
         });
         smde.codemirror.on("change", function(){
             var value = smde.value();
+            console.log(value);
             vm.content = value;
         });
     },

@@ -33,27 +33,25 @@
     </div>
     </transition>
     <transition name="el-zoom-in-top">
-    <div class="tag__add" v-show="is_add">
-      <div class="tag__add__header g-mb20">
-        <el-button type="primary" icon="arrow-left" @click="is_add=!is_add"></el-button>
+      <div class="tag__add" v-show="is_add">
+        <div class="tag__add__header g-mb20">
+          <el-button type="primary" icon="arrow-left" @click="is_add=!is_add"></el-button>
+        </div>
+        <div class="tag__add__form">
+          <el-row :gutter="20">
+            <el-col :span="4">
+              <i class="iconfont">&#xe649;</i>
+            </el-col>
+            <el-col :span="20">
+              <el-input v-model="name" placeholder="标签名称"></el-input>
+            </el-col>
+          </el-row>
+          <el-button type="primary">确定</el-button>
+        </div>
       </div>
-      <div class="tag__add__form">
-        <el-row :gutter="20">
-          <el-col :span="4">
-            <i class="iconfont">&#xe649;</i>
-          </el-col>
-          <el-col :span="20">
-            <el-input v-model="name" placeholder="标签名称"></el-input>
-          </el-col>
-        </el-row>
-        <el-button type="primary">确定</el-button>
-      </div>
-    </div>
     </transition>
-
   </div>
 </template>
-
 <script>
     import "./index.scss"
 

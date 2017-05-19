@@ -34,6 +34,15 @@
         <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
       </el-collapse-item>
     </el-collapse>  
+
+<!--     <div class="file__action">
+      <router-link to="/admin/article/edit">
+        <div class="btn-floating">
+          <i class="iconfont">&#xe609;</i>
+        </div>
+      </router-link>
+    </div>
+ -->    
   </div>
 </template>
 

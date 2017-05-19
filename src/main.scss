@@ -60,7 +60,7 @@ html{
 
       .iconfont{
         color: #666;
-        font-weight: 700;
+        font-weight: 768;
         font-size: 14px;
       } 
       @at-root #{&}__child{
@@ -115,7 +115,6 @@ html{
     z-index: 8;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 
-
     @at-root #{&}__ct{
       display: -webkit-box;
       display: -ms-flexbox;
@@ -128,7 +127,7 @@ html{
       margin: auto;
     }
     @at-root #{&}__logo{
-      font-weight: 700;
+      font-weight: 768;
       font-size: 16px;
       margin-right: 20px;
       margin-left: 10px;
@@ -156,7 +155,7 @@ html{
     }
     @at-root #{&}__nav-item{
       color: #71777c;
-      padding: 0 20px;
+      padding: 0 12px;
       font-size: 20px;
       -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -199,7 +198,7 @@ html{
   移动端样式调整
  */
 
-@media (min-width: 700px) {
+@media (min-width: 768px) {
   .main-cnt {
     padding: 12px 24px;
 
@@ -211,7 +210,7 @@ html{
     }
   }
 }
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .main-cnt {
     .page-container{
       overflow: hidden;
@@ -225,7 +224,7 @@ html{
       width: 100%;
       line-height: 40px;
       background-color: #fff;
-      border-bottom: 1px solid #f8f8f8;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
       padding-left: 10px;
       padding-right: 10px;
       box-sizing: border-box;
@@ -238,17 +237,17 @@ html{
 
       @at-root #{&}__icon{
         float: right;
-        font-weight: 700;
+        font-weight: 768;
         color: #666;
         margin: 5px;
         padding: 8px;
-        width: 14px;
         min-width: 14px;
-        height: 14px;
         min-height:14px;
         font-size: 14px;
         transition: transform .2s ease;
         -webkit-transition: transform .2s ease;
+        transform-origin:center center;
+        -webkit-transform-origin:center center;
 
         &:active{
           transform: scale(.6);
@@ -268,10 +267,14 @@ html{
         margin: 0 10px;
         padding: 0 13px;
         text-align: left;
-        font-weight: 700;
+        font-weight: 768;
         font-size: 12px;
         color: #777;
       }
+    }
+
+    .contents{
+      margin-top: 20px;
     }
   }
 

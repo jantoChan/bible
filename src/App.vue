@@ -3,7 +3,7 @@
     <div class="main-cnt g-pt40">
       <div class="page-container page-component">
         <div class="nav-header">
-            <i class="iconfont nav-header__icon" @click="is_nav = !is_nav">&#xe6fa;</i>
+            <i class="iconfont nav-header__icon" @click="is_nav = !is_nav">&#xe696;</i>
             <div class="nav-header__title">
               Janto
             </div>
@@ -42,7 +42,7 @@
               </transition>
             </div>
           </el-col>
-          <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-18 contents g-mt20">
+          <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-18 contents">
             <router-view></router-view>
           </el-col>
         </el-row> 
