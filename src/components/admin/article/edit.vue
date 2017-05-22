@@ -17,6 +17,20 @@
       </div>
     </div>
     <textarea id="editor"></textarea>
+    <el-row class="edit__action g-mt20"  type="flex" justify="space-around">
+      <el-col :span="8" class="edit__action__cancle">
+        <i class="iconfont">&#xe718;</i>
+        <p>取消</p>
+      </el-col>
+      <el-col :span="8" class="edit__action__draft">
+        <i class="iconfont">&#xe6fc;</i>
+        <p>草稿</p>
+      </el-col>
+      <el-col :span="8" class="edit__action__issue">
+        <i class="iconfont">&#xe61d;</i>
+        <p>发布</p>
+      </el-col>
+    </el-row>
     <transition name="el-zoom-in-top">
       <div class="edit__add" v-show="is_add">
         <div class="edit__add__header g-mb20">

@@ -98,4 +98,35 @@
         }
       }
     }
+    @at-root #{&}__action{
+      .iconfont{
+        font-size: 22px;
+      }
+      .el-col{
+        padding-top: 6px;
+        padding-bottom: 6px;
+        color: #5e6d82;
+        text-align: center;
+        cursor: pointer;
+        transition: transform .2s ease;
+        -webkit-transition: transform .2s ease;
+
+        &:hover,
+        &:active{
+          transform: scale(1.1);
+          -webkit-transform: scale(1.1);
+        }
+      }
+     @at-root #{&}__cancle{
+        background-color: #C0CCDA;
+     }
+     @at-root #{&}__draft{
+        background-color: #E5E9F2;
+     }
+     @at-root #{&}__issue{
+        background-color: #EFF2F7;
+     }
+ 
+    }
+
 }

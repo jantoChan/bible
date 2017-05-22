@@ -35,14 +35,13 @@
       </el-collapse-item>
     </el-collapse>  
 
-<!--     <div class="file__action">
+    <div class="file__action">
       <router-link to="/admin/article/edit">
         <div class="btn-floating">
           <i class="iconfont">&#xe609;</i>
         </div>
       </router-link>
     </div>
- -->    
   </div>
 </template>
 
