@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
@@ -50,9 +50,11 @@ module.exports = {
       }
     ]
   },
-  // resolve: {
-  //   alias: {}
-  // }
+  resolve: {
+    alias: {
+      
+    }
+  },
   // devServer: {
   //   historyApiFallback: true,
   //   noInfo: true,
