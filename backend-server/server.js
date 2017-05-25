@@ -1,18 +1,21 @@
-var express = require('express');
-var path = require('path');
-var app = express();
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var session = require('express-session');
+/*
+  leancloud
+  部署设置  
+ */
 
+'use strict';
+var AV = require('leanengine');
 
-/* 定义变量 */
-var resolve = file => path.resolve(__dirname, file);
+AV.init({
+  appId: process.env.LEANCLOUD_APP_ID || 'lgXBtzt0UOB7lW1KBjRgdolv-gzGzoHsz',
+  appKey: process.env.LEANCLOUD_APP_KEY || 'szT60BVfg8Bf6I9z1vvBFOTf',
+  masterKey: process.env.LEANCLOUD_APP_MASTER_KEY || '44Vgs3dNXUYtF17NW1FocN37'
+});
 
-app.use('/dist', express.static(resolve('./dist')));
+// 如果不希望使用 masterKey 权限，可以将下面一行删除
+AV.Cloud.useMasterKey();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+var app = require('./app');
 
 // var identityKey = 'skey';
 
@@ -28,12 +31,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // }));
 
 
-// 博客首页
-app.get('*', function(req, res) {
-    var html = fs.readFileSync(resolve('../' + 'index.html'), 'utf-8');
-    res.send(html)
-});
-
-app.listen(process.env.PORT || 3003, function() {
+app.listen(process.env.LEANCLOUD_APP_PORT || 3003, function() {
     console.log("hreo is comming");
 });
