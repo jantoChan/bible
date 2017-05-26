@@ -6,10 +6,10 @@ import './main.scss'
 Vue.use(ElementUI)
 
 import VueRouter from 'vue-router'
-import tagManage from "./components/admin/tag/index.vue"
-import fileManage from "./components/admin/file/index.vue"
-import articleEdit from "./components/admin/article/edit.vue"
-import Login from "./components/admin/login/index.vue"
+const tagManage = resolve => require(["./components/admin/tag/index.vue"], resolve)
+const fileManage = resolve => require(["./components/admin/file/index.vue"], resolve)
+const articleEdit = resolve => require(["./components/admin/article/edit.vue"], resolve)
+const Login = resolve => require(["./components/admin/login/index.vue"], resolve)
 
 Vue.use(VueRouter)
 

@@ -7,10 +7,10 @@ import axios from 'axios'
 Vue.use(ElementUI)
 
 import VueRouter from 'vue-router';
-import Home from "./components/exhibition/home/index.vue";
-import File from "./components/exhibition/file/index.vue";
-import Tag from "./components/exhibition/tag/index.vue";
-import About from "./components/exhibition/about/index.vue";
+const Home = resolve => require(["./components/exhibition/home/index.vue"], resolve)
+const File = resolve => require(["./components/exhibition/file/index.vue"], resolve)
+const Tag = resolve => require(["./components/exhibition/tag/index.vue"], resolve)
+const About = resolve => require(["./components/exhibition/about/index.vue"], resolve)
 
 Vue.use(VueRouter)
 var router = new VueRouter({
