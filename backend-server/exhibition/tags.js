@@ -1,28 +1,20 @@
 'use strict'
-const request = require('superagent');
-const md5=require('md5');
-const now=Date.now();
-const appkey='szT60BVfg8Bf6I9z1vvBFOTf';
-const sign=md5(now+appkey);
-
-var async = require('asyncawait/async');
-var await = require('asyncawait/await');
-
+const AV = require('leanengine')
+const Tag = new AV.Query('Tag');
 
 const pub={};
 pub.tags = async(req, res) => {
+  console.log(Tag.find());
   const queryTags = () => {
-    const query = new AV.Query('Tags')
-    return query.find()
+    return Tag.find()
   }
 
   try {
     const data = await queryTags();
 
     if (data) {
-       res.writeHead(200, {'Content-Type': 'application/json'});
-       res.end(JSON.stringify(data));
-
+      console.log(data);
+       res.json(data);
     } else {
       throw new Error("can not find tags")
     }
@@ -31,6 +23,4 @@ pub.tags = async(req, res) => {
   }
 }
  
-
-
 module.exports=pub;

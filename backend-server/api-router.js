@@ -23,7 +23,7 @@ const tags = require('./exhibition/tags')
 // router.get('/article/:id', content.article)
 
 // tags
-router.get('api/tags', tags.tags);
+router.get('/tags', tags.tags);
 
 // router.get('/tags/:tagId', tags.tagList)
 

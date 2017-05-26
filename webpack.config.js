@@ -52,21 +52,22 @@ module.exports = {
   },
   resolve: {
     alias: {
-      
+      'src': path.resolve(__dirname, './src'),
+      'assets': path.resolve(__dirname, './src/assets'),
+      'components': path.resolve(__dirname, './src/components') 
     }
   },
-  // devServer: {
-  //   historyApiFallback: true,
-  //   noInfo: true,
-  //   proxy: [
-  //     {
-  //       context: ['/api'],
-  //       target: 'http://localhost:7000',
-  //       changeOrigin: true,
-  //       secure: false
-  //     }
-  //   ]
-  // },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true,
+    proxy: {
+     "/api": {
+        target: "http://localhost:3003",
+        changeOrigin: true,
+        secure: false
+      }
+    }
+  },
   performance: {
     hints: false
   },

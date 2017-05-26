@@ -9,11 +9,18 @@ import VueRouter from 'vue-router'
 import tagManage from "./components/admin/tag/index.vue"
 import fileManage from "./components/admin/file/index.vue"
 import articleEdit from "./components/admin/article/edit.vue"
+import Login from "./components/admin/login/index.vue"
 
 Vue.use(VueRouter)
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    {
+      path: '/admin/login',
+      name: 'login',
+      component: Login
+    },
     {
       path: '/admin/tag',
       name: 'tag',

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="main-cnt main-cnt--admin" v-if="is_login">
+    <div class="main-cnt main-cnt--admin">
       <div class="page-container page-component">
         <div class="header">
           <div class="header__ct">
@@ -18,14 +18,10 @@
         <router-view class="contents g-mt20"></router-view>
       </div>
     </div>
-    <div v-else>
-      <Login></Login>
-    </div>
   </div>
 </template>
 
 <script>
-import Login from "./components/admin/login/index.vue"
 export default {
   name: 'admin',
   data() {
@@ -34,7 +30,6 @@ export default {
     }
   },
   components: {
-    Login
   }
 }
 </script>

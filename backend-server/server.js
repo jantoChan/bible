@@ -12,7 +12,7 @@ AV.init({
   masterKey: process.env.LEANCLOUD_APP_MASTER_KEY || '44Vgs3dNXUYtF17NW1FocN37'
 });
 
-// 如果不希望使用 masterKey 权限，可以将下面一行删除
+// 你可以使用 useMasterKey 在云引擎中开启 masterKey 权限，将会跳过 ACL 和其他权限限制。
 AV.Cloud.useMasterKey();
 
 var app = require('./app');

@@ -13,7 +13,7 @@ import Tag from "./components/exhibition/tag/index.vue";
 import About from "./components/exhibition/about/index.vue";
 
 Vue.use(VueRouter)
-const router = new VueRouter({
+var router = new VueRouter({
   mode: 'history',
   routes: [
     {

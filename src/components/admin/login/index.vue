@@ -15,7 +15,10 @@
       v-model="password"
       class="g-mb20 login__input">
     </el-input>
-    <el-button class="login__btn" @click="handleLoginClick" :loading="is_loading">登录</el-button>
+    <el-button
+     @click="handleLoginClick" 
+     :loading="is_loading"
+     class="btn login__btn">登录</el-button>
   </div>
 </template>
 
