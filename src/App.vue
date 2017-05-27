@@ -3,7 +3,9 @@
     <div class="main-cnt g-pt40">
       <div class="page-container page-component">
         <div class="nav-header">
-            <i class="iconfont nav-header__icon" @click="is_nav = !is_nav">&#xe696;</i>
+            <div class="nav-header__icon" @click="is_nav = !is_nav">
+              <i class="iconfont">&#xe696;</i>
+            </div>
             <div class="nav-header__title">
               Janto
             </div>
@@ -48,28 +50,32 @@
   </div>
 </template>
 
-<style lang="scss">
-    @import "./main.scss"
-</style>
-
 <script>
+import "src/main.scss"
+import axios from 'axios'
+
 export default {
   name: 'app',
   data() {
     return{
       is_nav: false,
+      user: {},
       router: [
         {to: '/', name: '首页'},
         {to: '/file', name: '归档'},
         {to: '/tag', name: '标签'},
-        {to: '/about', name: '关于我'}
+        {to: '/about', name: '关于我'},
+        {to: '/article', name: '文章'}
       ]
     }
   },
   methods: {
+    getUser() {
+      var vm=this;
+      //请求api获取用户数据
+    }
   },
   components: {
-
   }
 }
 </script>

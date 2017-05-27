@@ -7,10 +7,11 @@ import axios from 'axios'
 Vue.use(ElementUI)
 
 import VueRouter from 'vue-router';
-const Home = resolve => require(["./components/exhibition/home/index.vue"], resolve)
-const File = resolve => require(["./components/exhibition/file/index.vue"], resolve)
-const Tag = resolve => require(["./components/exhibition/tag/index.vue"], resolve)
-const About = resolve => require(["./components/exhibition/about/index.vue"], resolve)
+const Home = resolve => require(["components/exhibition/home/index.vue"], resolve)
+const File = resolve => require(["components/exhibition/file/index.vue"], resolve)
+const Tag = resolve => require(["components/exhibition/tag/index.vue"], resolve)
+const About = resolve => require(["components/exhibition/about/index.vue"], resolve)
+const Article = resolve => require(["components/exhibition/article/index.vue"], resolve)
 
 Vue.use(VueRouter)
 var router = new VueRouter({
@@ -35,6 +36,11 @@ var router = new VueRouter({
       path: '/about',
       name: 'about',
       component: About
+    },
+    {
+      path: '/article',
+      name: 'article',
+      component: Article
     }
   ]
 })

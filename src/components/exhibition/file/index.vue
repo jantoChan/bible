@@ -4,7 +4,6 @@
         <el-tab-pane :label="'201'+n" :name="n+''" class="g-flex--wrap g-mb20" v-for="n in 5">
           <div class="card" v-for="n in 5">
             <div class="card__header">
-              <!-- <router-link to="/aa"></router-link> -->
               saldkjf
             </div> 
             <div class="card__meta">
@@ -23,6 +22,25 @@
 <script>
 import "./index.scss"
 
+/*
+  file{
+     yearlist{
+        value,
+        id,
+        name
+     }
+     year: {
+        limit,
+        total,
+        page,
+        data: [
+          {title, author, data, abstract, id}
+        ]
+     }
+  }
+
+ */
+
 export default {
   name: 'File',
   data() {
@@ -33,6 +51,12 @@ export default {
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
+    },
+    getNav() {
+      
+    },
+    getList() {
+            
     }
   }
 }

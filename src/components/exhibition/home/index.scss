@@ -1,0 +1,15 @@
+.home{
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 400px;
+
+  @at-root #{&}__funny{
+    max-width: 100%;
+    height: 100%;
+    background-image: url('../../../assets/img/banana.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+
+}

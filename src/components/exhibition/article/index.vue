@@ -1,16 +1,21 @@
 <template>
-  <div>
+  <div class="article">
     文章
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Articel',
-  
+  name: 'Article',
+  data(){
+    return {
+      article: {}
+    }
+  },
+  methods: {
+    getArticle() {
+      
+    }
+  }
 }
 </script>
-
-<style>
-
-</style>

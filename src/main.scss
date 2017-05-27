@@ -238,15 +238,17 @@ html{
         float: right;
         font-weight: 768;
         color: #666;
-        margin: 5px;
-        padding: 8px;
-        min-width: 14px;
-        min-height:14px;
-        font-size: 14px;
         transition: transform .2s ease;
         -webkit-transition: transform .2s ease;
         transform-origin:center center;
         -webkit-transform-origin:center center;
+
+        .iconfont{
+          padding: 8px;
+          min-width: 14px;
+          min-height:14px;
+          font-size: 14px;
+        }
 
         &:active{
           transform: scale(.6);

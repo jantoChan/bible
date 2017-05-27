@@ -17,12 +17,28 @@
   </div>
 </template>
 
-<style lang="scss">
-    @import "./index.scss"
-</style>
-
 <script>
-export default {
+import "./index.scss"
+
+/*
+  tag{
+     taglist{
+        value,
+        id,
+        name
+     }
+     tag: {
+        limit,
+        total,
+        page,
+        data: [
+          {title, data, id}
+        ]
+     }
+  }
+ */
+
+ export default {
   name: 'Tag',
   data() {
     return {
