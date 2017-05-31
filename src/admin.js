@@ -7,6 +7,7 @@ Vue.use(ElementUI)
 
 import VueRouter from 'vue-router'
 const tagManage = resolve => require(["components/admin/tag/index.vue"], resolve)
+const tagDetail = resolve => require(["components/admin/tag/detail.vue"], resolve)
 const fileManage = resolve => require(["components/admin/file/index.vue"], resolve)
 const articleEdit = resolve => require(["components/admin/article/edit.vue"], resolve)
 const Login = resolve => require(["components/admin/login/index.vue"], resolve)
@@ -25,6 +26,11 @@ const router = new VueRouter({
       path: '/admin/tag',
       name: 'tag',
       component: tagManage
+    },
+    {
+      path: '/admin/tag/detail/:id',
+      name: 'tagDetail',
+      component: tagDetail
     },
     {
       path: '/admin/file',

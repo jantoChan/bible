@@ -2,9 +2,7 @@
    // @at-root #{&} 
    // 
   @at-root #{&}__title{
-    margin-left: 10px;
-    margin-right: 10px;
-    width: calc(100% - 20px);
+
    .el-input__inner{
       background-color: transparent;
       border: none;
@@ -18,8 +16,6 @@
   }
 
    @at-root #{&}__tag{
-      padding-left: 10px;
-      padding-right: 10px;
 
       .el-tag:not(:last-child){
         margin-right: 20px;
@@ -99,34 +95,23 @@
       }
     }
     @at-root #{&}__action{
+      max-width: 640px;
+      margin: 20px auto;
+
       .iconfont{
         font-size: 22px;
       }
       .el-col{
-        padding-top: 6px;
-        padding-bottom: 6px;
         color: #5e6d82;
         text-align: center;
         cursor: pointer;
-        transition: transform .2s ease;
-        -webkit-transition: transform .2s ease;
-
-        &:hover,
-        &:active{
-          transform: scale(1.1);
-          -webkit-transform: scale(1.1);
-        }
       }
-     @at-root #{&}__cancle{
-        background-color: #C0CCDA;
-     }
-     @at-root #{&}__draft{
-        background-color: #E5E9F2;
-     }
-     @at-root #{&}__issue{
-        background-color: #EFF2F7;
-     }
- 
     }
+}
 
+@media (max-width: 768px) {
+  .edit{
+    padding-left: 10px;
+    padding-right: 10px;
+  } 
 }

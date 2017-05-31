@@ -16,19 +16,18 @@
         添加标签
       </div>
     </div>
-    <textarea id="editor"></textarea>
+    <div class="edit__filed">
+      <textarea id="editor"></textarea>
+    </div>
     <el-row class="edit__action g-mt20"  type="flex" justify="space-around">
-      <el-col :span="8" class="edit__action__cancle">
+      <el-col :span="8" class="edit__action--cancle btn-floating">
         <i class="iconfont">&#xe718;</i>
-        <p>取消</p>
       </el-col>
-      <el-col :span="8" class="edit__action__draft">
+      <el-col :span="8" class="edit__action--draft btn-floating">
         <i class="iconfont">&#xe6fc;</i>
-        <p>草稿</p>
       </el-col>
-      <el-col :span="8" class="edit__action__issue">
+      <el-col :span="8" class="edit__action--issue btn-floating">
         <i class="iconfont">&#xe61d;</i>
-        <p>发布</p>
       </el-col>
     </el-row>
     <transition name="el-zoom-in-top">
@@ -48,6 +47,16 @@
 
 <script>
     import "./index.scss"
+
+    /*
+      articleAdd{
+        title,
+        tag: [ids],
+        contents,
+        is_publish
+      }
+      
+    */
 
     /* maked */
     import SimpleMDE from "simplemde"

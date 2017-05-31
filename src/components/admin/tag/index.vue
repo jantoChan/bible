@@ -1,7 +1,7 @@
 <template>
   <div class="tag">
     <div class="tag__list" v-show="!is_add">
-      <div class="list-item" v-for="n in 20">
+      <router-link v-for="n in 15" :to="'/admin/tag/detail/' + n" class="list-item">
         <i class="iconfont list-item__icon">&#xe619;</i>
         <div class="list-item__ct">
           <a class="list-item__header" href="javascript:;">Semantic</a>
@@ -10,7 +10,7 @@
         <transition name="el-zoom-in-center">
           <el-checkbox v-model="checked" v-show="is_edit"></el-checkbox>
         </transition>
-      </div>
+      </router-link>
     </div>
     <div class="tag__action" v-show="!is_edit && !is_add">
       <div class="btn-floating g-mb10" @click="is_edit=!is_edit">
@@ -54,6 +54,28 @@
 </template>
 <script>
     import "./index.scss"
+
+    /*
+      tag:{
+        total,
+        list: [
+          id,
+          name,
+          value,
+          count
+        ] 
+      } 
+    */
+    /*
+      add{
+        [id] 
+      } 
+   */ 
+    /*
+      delete{
+        [id] 
+      } 
+   */ 
 
     export default {
         name: "tagManage",

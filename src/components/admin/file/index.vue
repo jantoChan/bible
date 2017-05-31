@@ -45,11 +45,22 @@
   </div>
 </template>
 
-<style lang="scss">
-  @import "./index.scss"
-</style>
-
 <script>
+    import "./index.scss"
+
+    /*
+      yearAll{
+        total,
+        data: [
+          {
+            name, 
+            value, 
+            list: [id, title, date]
+          }
+        ] 
+      } 
+     */
+    
     export default {
         name: "fileManage",
         data() {

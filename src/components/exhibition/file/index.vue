@@ -34,11 +34,10 @@ import "./index.scss"
         total,
         page,
         data: [
-          {title, author, data, abstract, id}
+          {title, author, date, abstract, id, is_publish}
         ]
      }
   }
-
  */
 
 export default {
