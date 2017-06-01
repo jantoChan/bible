@@ -38,7 +38,7 @@
           <el-button type="primary" icon="arrow-left" @click="is_add=!is_add"></el-button>
         </div>
         <div class="tag__add__form">
-          <el-row :gutter="20">
+          <el-row :gutter="20" class="g-mb20">
             <el-col :span="4">
               <i class="iconfont">&#xe649;</i>
             </el-col>
@@ -46,7 +46,15 @@
               <el-input v-model="name" placeholder="标签名称"></el-input>
             </el-col>
           </el-row>
-          <el-button type="primary">确定</el-button>
+          <el-row :gutter="20">
+            <el-col :span="4">
+              <i class="iconfont">&#xe6e1;</i>
+            </el-col>
+            <el-col :span="20">
+              <el-input v-model="value" placeholder="标签值"></el-input>
+            </el-col>
+          </el-row>
+          <el-button type="primary" @click="addTag">确定</el-button>
         </div>
       </div>
     </transition>
@@ -54,7 +62,7 @@
 </template>
 <script>
     import "./index.scss"
-
+    import axios from 'axios'
     /*
       tag:{
         total,
@@ -79,18 +87,50 @@
 
     export default {
         name: "tagManage",
+        created() {
+          this.getTagList();          
+        },
         data() {
           return {
             activeName: 'first',
             checked: true,
             is_edit: false,
             is_add: false,
-            name: ''
+            name: '',
+            value: ''
           };
         },
         methods: {
-          handleClick(tab, event) {
-            console.log(tab, event);
+          getTagList() {
+            var vm=this;
+            axios.get('/api/tags')
+              .then(function (response) {
+                console.log('success');
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          },
+          addTag() {
+            var vm=this;
+            axios.post('/api/tags/add', {
+                name: vm.name,
+                value: vm.value
+              })
+              .then(function (response) {
+                console.log('success');
+                console.log(response);
+
+                // reset
+                vm.name='';
+                vm.value='';
+                vm.is_add = false;
+
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           }
         }
     }

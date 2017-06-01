@@ -21,7 +21,7 @@
     </div>
     <el-row class="edit__action g-mt20"  type="flex" justify="space-around">
       <el-col :span="8" class="edit__action--cancle btn-floating">
-        <i class="iconfont">&#xe718;</i>
+        <i class="iconfont">&#xe69a;</i>
       </el-col>
       <el-col :span="8" class="edit__action--draft btn-floating">
         <i class="iconfont">&#xe6fc;</i>
@@ -35,13 +35,12 @@
         <div class="edit__add__header g-mb20">
           <el-button type="primary" icon="arrow-left" @click="is_add=!is_add"></el-button>
         </div>
-        <div class="tag__add__form">
+        <div class="edit__add__form">
           <el-checkbox v-model="checked">备选项</el-checkbox>
-          <el-button type="primary">确定</el-button>
+          <el-button type="primary" class="edit__add__form__sub">确定</el-button>
         </div>
       </div>
     </transition>
-
   </div>
 </template>
 
@@ -55,7 +54,6 @@
         contents,
         is_publish
       }
-      
     */
 
     /* maked */

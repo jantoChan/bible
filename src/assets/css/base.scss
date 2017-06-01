@@ -163,6 +163,40 @@
   }
 }
 
+/*
+  cell 样式
+*/
+.cell{
+    background-color: #fff;
+    padding: 10px 15px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+    @at-root #{&}__hd{
+      .iconfont{
+        width: 20px;
+        font-size: 16px;
+        margin-right: 5px;
+        display: block;
+      }  
+    }
+    @at-root #{&}__bd{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+    }
+    @at-root #{&}__ft{
+      text-align: right;
+      color: #999999;
+    }
+}
+
+
 @media (min-width: 768px){
   .card{
     -webkit-box-sizing: border-box;

@@ -78,7 +78,8 @@
           color: #bfcbd9;
           margin: auto;
         }
-        .el-button{
+
+        @at-root #{&}__sub{
           position: absolute;
           bottom: 0;
           width: 100%;
@@ -92,7 +93,6 @@
             opacity: .8;
           }
         }
-      }
     }
     @at-root #{&}__action{
       max-width: 640px;
@@ -107,6 +107,11 @@
         cursor: pointer;
       }
     }
+  }
+
+  .btn-floating{
+    background-color: #8391a5;
+  }
 }
 
 @media (max-width: 768px) {
