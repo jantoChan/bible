@@ -122,6 +122,10 @@
                 console.log('success');
                 console.log(response);
 
+                vm.$message({
+                  message: '添加成功',
+                  type: 'success'
+                });
                 // reset
                 vm.name='';
                 vm.value='';
@@ -135,4 +139,3 @@
         }
     }
 </script>
-

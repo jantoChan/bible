@@ -4,15 +4,26 @@ const AV = require('leanengine')
  // 声明类型
 const Tag = AV.Object.extend('Tag');
 const QueryTag = new AV.Query('Tag');
+const QueryArticle = new AV.Query('Article');
 const tagClass = new Tag();
 
 const pub={
   tagList: async(req, res) => {
 
-    let url_param=url.parse(req.url, true).query;
+    // 构建内嵌查询
+    QueryTag.find();
+
+    // 执行内嵌操作
+    query.matchesQuery('targetTodoFolder', innerQuery);
+    query.find().then(function (results) {
+       // results 就是符合超过 20 个赞的 TodoFolder 这一条件的 Comment 对象集合
+    }, function (error) {
+    });
 
     const queryTags = () => {
-      return Tag.find()
+      QueryTag.find().then(
+
+      );
     }
 
     try {
