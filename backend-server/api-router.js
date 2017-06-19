@@ -25,6 +25,7 @@ const tags = require('./exhibition/tags')
 // tags
 router.get('/tags', tags.tagList);
 router.post('/tags/add', tags.tagAdd);
+router.post('/tags/delete', tags.tagDelete);
 
 // router.get('/tags/:tagId', tags.tagList)
 

@@ -26,6 +26,20 @@
     .el-checkbox__inner{
       border-radius: 50%;
     }
+
+    /*
+      checkbox
+    */
+    .checkbox{
+      @at-root #{&}__checked{
+        color: #4183c4!important;
+      }
+      .iconfont{
+        font-size: 18px;
+        color: #8492a6;
+      }  
+    }
+
     &:not(:last-child){
       margin-bottom: 12px;
     }
@@ -72,6 +86,7 @@
       text-align: right;
     }
   }
+
   @at-root #{&}__add{
     position: fixed;
     top: 0;
@@ -147,4 +162,18 @@
         }
       }
   }
+
+  @at-root #{&}__empty{
+    margin: 40px auto;
+    text-align: center;
+    color: #ccc;
+
+    .iconfont{
+      margin: auto;
+      font-size: 64px;
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
 }
+

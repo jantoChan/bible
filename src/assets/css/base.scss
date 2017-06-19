@@ -74,11 +74,12 @@
   }
   @at-root #{&}__ct{
     display: table-cell;
-    padding: 0 0 0 .5em;
+    padding: 0 .5em;
     vertical-align: top;
-    line-height: 1.14285714em;
+    line-height: 1.4em;
   }
   @at-root #{&}__header{
+    font-size: 15px;
     display: block;
     cursor: pointer;
     color: #4183c4;
@@ -209,4 +210,5 @@
     }
   } 
 }
+
 

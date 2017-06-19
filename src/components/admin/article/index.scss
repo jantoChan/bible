@@ -91,6 +91,8 @@
           &:active,
           &:hover{
             opacity: .8;
+            background-color: #8492A6;
+            border: none;
           }
         }
     }
@@ -113,6 +115,31 @@
     background-color: #8391a5;
   }
 }
+
+.el-checkbox{
+  @at-root #{&}__inner{
+    &:hover,
+    &:active{
+      border-color: #ccc; 
+    }
+  }
+
+  @at-root #{&}__input{
+    &.is-checked{
+     .el-checkbox__inner{
+        background-color: #bfcbd9;
+        border-color: #ccc; 
+      }
+    }
+  }
+
+  &:not(:last-child){
+    margin-left: 0;
+    margin-right: 16px;
+    margin-bottom: 10px;
+  }
+}
+
 
 @media (max-width: 768px) {
   .edit{

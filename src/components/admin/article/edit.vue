@@ -1,25 +1,23 @@
 <template>
   <div class="edit">
-    <el-input v-model="title" placeholder="请输入标题" class="edit__title"></el-input>
+    <el-input v-model="title" placeholder="文章标题" class="edit__title"></el-input>
     <div class="edit__tag g-mt20">
       <el-tag
-        v-for="n in 5"
-        :key="n"
-        :closable="true"
-        v-if="!!tags.length"
+        v-for="tag in tagSelectObj"
+        v-if="!!tagSelectObj.length"
       >
-        {{n}}
+        {{tag.name}}
       </el-tag>
       <div class="el-tag edit__add-tag g-mb20" 
         @click="addTag"
       >
-        添加标签
+        编辑标签
       </div>
     </div>
     <div class="edit__filed">
       <textarea id="editor"></textarea>
     </div>
-    <el-row class="edit__action g-mt20"  type="flex" justify="space-around">
+    <el-row class="edit__action g-mt20 g-mb20"  type="flex" justify="space-around">
       <el-col :span="8" class="edit__action--cancle btn-floating">
         <i class="iconfont">&#xe69a;</i>
       </el-col>
@@ -36,8 +34,10 @@
           <el-button type="primary" icon="arrow-left" @click="is_add=!is_add"></el-button>
         </div>
         <div class="edit__add__form">
-          <el-checkbox v-model="checked">备选项</el-checkbox>
-          <el-button type="primary" class="edit__add__form__sub">确定</el-button>
+          <el-checkbox-group v-model="tagSelect">
+             <el-checkbox :label="index" v-for="(tag, index) in tagList" :value="tag.objectId" :key="tag.objectId">{{tag.name}}</el-checkbox>
+          </el-checkbox-group>
+          <!-- <el-button type="primary" class="edit__add__form__sub">确定</el-button> -->
         </div>
       </div>
     </transition>
@@ -63,19 +63,29 @@
     import hljs from "highlight.js"
     import "../../../assets/css/monokai-sublime.css"
 
+    //ajax
+    import axios from 'axios'
+
     export default {
         name: "articleEdit",
         data() {
           return {
+            is_add: false,
+            checked: false,
             title: '',
             tags: [],
-            is_add: false,
             name: '',
-            checked: false,
-            content: ''
+            content: '',
+            tagSelect: [],
+            tagSelectObj: [],
+            tagList: []
           }
         },
-        mounted: function() {
+        created() {
+          var vm=this;
+          vm.getTags();
+        },
+        mounted() {
           var vm=this;
           var dom=document.getElementById('editor');
           if (!dom) {
@@ -106,13 +116,36 @@
             });
             smde.codemirror.on("change", function(){
                 var value = smde.value();
+                console.log(value);
                 vm.content = value;
             });
         },
         methods: {
-          addTag: function() {
+          addTag() {
             var vm=this;
             vm.is_add=true;
+          },
+          getTags() {
+            var vm=this;
+            axios.get('/api/tags')
+              .then(function (response) {
+                if (response.status === 200 && response.data.length>0) {
+                  vm.tagList=response.data.reverse();
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          }
+        },
+        watch: {
+          tagSelect(val) {
+            var vm=this;
+            vm.tagSelectObj.splice(0, vm.tagSelectObj.length)
+            for(var i=0; i<val.length; i++){
+              var cur=val[i]
+              vm.tagSelectObj.push(vm.tagList[cur]);
+            }
           }
         },
         components: {

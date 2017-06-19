@@ -32,11 +32,11 @@
         name: "tagDetail",
         data() {
           return {
-
+            objectId: ''
           };
         },
-        methods: {
-
+        created() {
+          this.objectId=this.$route.params.id;
         }
     }
 </script>

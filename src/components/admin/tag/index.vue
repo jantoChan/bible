@@ -1,16 +1,25 @@
 <template>
-  <div class="tag">
-    <div class="tag__list" v-show="!is_add">
-      <router-link v-for="n in 15" :to="'/admin/tag/detail/' + n" class="list-item">
+  <div class="tag" v-loading.fullscreen.lock="fullscreenLoading">
+    <div class="tag__list" v-show="!is_add" v-if="tagList.length > 0 && !fullscreenLoading">
+      <div class="list-item" v-for="(tag, index) in tagList" @click="guideAction(index)">
         <i class="iconfont list-item__icon">&#xe619;</i>
         <div class="list-item__ct">
-          <a class="list-item__header" href="javascript:;">Semantic</a>
-          <div class="list-item__description">2017篇文章</div>
+          <a class="list-item__header" href="javascript:;" v-text="tag.name"></a>
+          <div class="list-item__description" v-cloak>{{tag.quote}}篇文章</div>
         </div>
         <transition name="el-zoom-in-center">
-          <el-checkbox v-model="checked" v-show="is_edit"></el-checkbox>
+          <div class="list-item__label" v-show="is_edit">
+            <div class="checkbox">
+              <i class="checkbox__checked iconfont" v-if="tag.is_select">&#xe730;</i>
+              <i class="checkbox__nochecked iconfont" v-else>&#xe72f;</i>
+            </div> 
+          </div>
         </transition>
-      </router-link>
+      </div>
+    </div>
+    <div class="tag__empty" v-if="tagList.length === 0 && !fullscreenLoading">
+      <i class="iconfont">&#xe7ec;</i>
+      暂未添加标签 ~
     </div>
     <div class="tag__action" v-show="!is_edit && !is_add">
       <div class="btn-floating g-mb10" @click="is_edit=!is_edit">
@@ -21,16 +30,16 @@
       </div>
     </div>
     <transition name="el-zoom-in-top">
-    <div class="tag__del" v-show="is_edit">
-      <el-row class="tag__del__ct">
-        <el-col :span="12">      
-          <el-button type="primary" @click="is_edit=!is_edit">取消</el-button> 
-        </el-col>
-        <el-col :span="12" class="f-txt-right">
-          <el-button type="primary">删除</el-button>
-        </el-col>
-      </el-row>
-    </div>
+      <div class="tag__del" v-show="is_edit">
+        <el-row class="tag__del__ct">
+          <el-col :span="12">      
+            <el-button type="primary" @click="resetTag">取消</el-button> 
+          </el-col>
+          <el-col :span="12" class="f-txt-right">
+            <el-button type="primary" @click="deleteTag">删除</el-button>
+          </el-col>
+        </el-row>
+      </div>
     </transition>
     <transition name="el-zoom-in-top">
       <div class="tag__add" v-show="is_add">
@@ -63,27 +72,6 @@
 <script>
     import "./index.scss"
     import axios from 'axios'
-    /*
-      tag:{
-        total,
-        list: [
-          id,
-          name,
-          value,
-          count
-        ] 
-      } 
-    */
-    /*
-      add{
-        [id] 
-      } 
-   */ 
-    /*
-      delete{
-        [id] 
-      } 
-   */ 
 
     export default {
         name: "tagManage",
@@ -93,22 +81,32 @@
         data() {
           return {
             activeName: 'first',
-            checked: true,
             is_edit: false,
             is_add: false,
+            fullscreenLoading: true,
             name: '',
-            value: ''
+            value: '',
+            tagList: [],
+            selectTag: []
           };
         },
         methods: {
           getTagList() {
             var vm=this;
+            vm.fullscreenLoading=true;
             axios.get('/api/tags')
               .then(function (response) {
-                console.log('success');
-                console.log(response);
+                vm.fullscreenLoading=false;
+                if (response.status === 200 && response.data.length>0) {
+                  for (let i = response.data.length- 1; i >= 0; i--) {
+                      let cur= response.data[i];
+                      cur['is_select']= false;
+                  }
+                  vm.tagList=response.data.reverse();
+                }
               })
               .catch(function (error) {
+                vm.fullscreenLoading=false;
                 console.log(error);
               });
           },
@@ -119,9 +117,8 @@
                 value: vm.value
               })
               .then(function (response) {
-                console.log('success');
-                console.log(response);
 
+                vm.getTagList();
                 vm.$message({
                   message: '添加成功',
                   type: 'success'
@@ -133,8 +130,72 @@
 
               })
               .catch(function (error) {
+                vm.$message({
+                  message: "sorry, we've got a problem !",
+                  type: 'error'
+                });
                 console.log(error);
               });
+          },
+          deleteTag() {
+            var vm=this;
+            if (vm.selectTag.length ===0 ) {
+              vm.$notify({
+                message: '请选择删除的标签',
+                type: 'warning',
+                duration: 2000
+              }); 
+            }else{
+             axios.post('/api/tags/delete', {tags: vm.selectTag})
+              .then(function (response) {
+
+                vm.getTagList();
+                vm.$message({
+                  message: '删除成功',
+                  type: 'success'
+                });
+                // reset
+                vm.resetTag();
+              })
+              .catch(function (error) {
+                vm.$message({
+                  message: "sorry, we've got a problem !",
+                  type: 'error'
+                });
+                console.log(error);
+              });
+            }
+          },
+          resetTag() {
+            var vm=this;
+            vm.is_edit=false;
+
+            //清空所选标签
+            var length=vm.selectTag.length;
+            vm.selectTag.splice(0, length);
+
+            //重置标签状态
+            for (var i = vm.tagList.length - 1; i >= 0; i--) {
+              vm.tagList[i]['is_select'] =false;
+            }
+          },
+          guideAction(index) {
+            var vm=this;
+            var curItem=vm.tagList[index];
+            if (vm.is_edit) {
+              //编辑状态
+              if (curItem['is_select']) {
+                var curIndex = vm.selectTag.indexOf(curItem['objectId']);
+                vm.selectTag.splice(curIndex, 1);
+              }else{
+                vm.selectTag.push(curItem['objectId']);
+              }
+              curItem['is_select'] = !curItem['is_select'];
+
+            }else{
+              var path= "/admin/tag/detail/" + curItem['objectId'];
+              vm.$router.push(path);
+            }
           }
         }
     }
