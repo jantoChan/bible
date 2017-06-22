@@ -19,7 +19,6 @@ const pub={
       let data = await queryTags();
 
       if (data) {
-        console.log(data);
         res.json(data);
       } else {
         throw new Error("can not find tags")
@@ -71,7 +70,6 @@ const pub={
       let data = await deleteTags();
 
       if (data) {
-        console.log(data);
         res.json(data);
       } else {
         throw new Error("can not delete tags!");
@@ -79,7 +77,6 @@ const pub={
     } catch (error) {
 
     }
-
  
   }
 };

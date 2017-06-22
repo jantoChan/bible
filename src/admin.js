@@ -10,6 +10,7 @@ const tagManage = resolve => require(["components/admin/tag/index.vue"], resolve
 const tagDetail = resolve => require(["components/admin/tag/detail.vue"], resolve)
 const fileManage = resolve => require(["components/admin/file/index.vue"], resolve)
 const articleEdit = resolve => require(["components/admin/article/edit.vue"], resolve)
+const articlePreview = resolve => require(["components/admin/article/preview.vue"], resolve)
 const Login = resolve => require(["components/admin/login/index.vue"], resolve)
 
 Vue.use(VueRouter)
@@ -41,6 +42,11 @@ const router = new VueRouter({
       path: '/admin/article/edit',
       name: 'articleEdit',
       component: articleEdit
+    },
+    {
+      path: '/admin/article/preview',
+      name: 'articlePreview',
+      component: articlePreview
     }
   ]
 })
@@ -55,38 +61,6 @@ new Vue({
     },
     mounted: function()  {
       var vm=this;
-      var dom=document.getElementById('editor');
-      if (!dom) {
-        return false;
-      }
-      hljs.initHighlightingOnLoad();
-      var smde = new SimpleMDE({
-            element: dom,
-            autofocus: true,
-            autosave: true,
-            showIcons: ["code", "table"],
-            hideIcons: ["fullscreen", "guide"],
-            previewRender: function(plainText) {
-                return marked(plainText,{
-                    renderer: new marked.Renderer(),
-                    gfm: true,
-                    pedantic: false,
-                    sanitize: false,
-                    tables: true,
-                    breaks: true,
-                    smartLists: true,
-                    smartypants: true,
-                    highlight: function (code) {
-                        return hljs.highlightAuto(code).value;
-                    }
-                });
-            },
-        });
-        smde.codemirror.on("change", function(){
-            var value = smde.value();
-            console.log(value);
-            vm.content = value;
-        });
     },
     render: h => h(App)
 })

@@ -91,8 +91,19 @@
           };
         },
         methods: {
+          checkNull() {
+            let vm= this,
+            is_fill= vm.name && vm.value;
+            if (!is_fill) {
+              vm.$message({
+                message: '注意，标签名或值不能为空',
+                type: 'warning'
+              });
+            } 
+            return is_fill;
+          },
           getTagList() {
-            var vm=this;
+            let vm=this;
             vm.fullscreenLoading=true;
             axios.get('/api/tags')
               .then(function (response) {
@@ -111,39 +122,41 @@
               });
           },
           addTag() {
-            var vm=this;
-            axios.post('/api/tags/add', {
-                name: vm.name,
-                value: vm.value
-              })
-              .then(function (response) {
+            let vm=this;
+            let is_fill=vm.checkNull();
+            if (is_fill) {
+              axios.post('/api/tags/add', {
+                  name: vm.name,
+                  value: vm.value
+                })
+                .then(function (response) {
 
-                vm.getTagList();
-                vm.$message({
-                  message: '添加成功',
-                  type: 'success'
-                });
-                // reset
-                vm.name='';
-                vm.value='';
-                vm.is_add = false;
+                  vm.getTagList();
+                  vm.$message({
+                    message: '添加成功',
+                    type: 'success'
+                  });
+                  // reset
+                  vm.name='';
+                  vm.value='';
+                  vm.is_add = false;
 
-              })
-              .catch(function (error) {
-                vm.$message({
-                  message: "sorry, we've got a problem !",
-                  type: 'error'
+                })
+                .catch(function (error) {
+                  vm.$message({
+                    message: "sorry, we've got a problem !",
+                    type: 'error'
+                  });
+                  console.log(error);
                 });
-                console.log(error);
-              });
+            }
           },
           deleteTag() {
-            var vm=this;
+            let vm=this;
             if (vm.selectTag.length ===0 ) {
-              vm.$notify({
+              vm.$message({
                 message: '请选择删除的标签',
-                type: 'warning',
-                duration: 2000
+                type: 'warning'
               }); 
             }else{
              axios.post('/api/tags/delete', {tags: vm.selectTag})
@@ -167,25 +180,25 @@
             }
           },
           resetTag() {
-            var vm=this;
+            let vm=this;
             vm.is_edit=false;
 
             //清空所选标签
-            var length=vm.selectTag.length;
+            let length=vm.selectTag.length;
             vm.selectTag.splice(0, length);
 
             //重置标签状态
-            for (var i = vm.tagList.length - 1; i >= 0; i--) {
+            for (let i = vm.tagList.length - 1; i >= 0; i--) {
               vm.tagList[i]['is_select'] =false;
             }
           },
           guideAction(index) {
-            var vm=this;
-            var curItem=vm.tagList[index];
+            let vm=this;
+            let curItem=vm.tagList[index];
             if (vm.is_edit) {
               //编辑状态
               if (curItem['is_select']) {
-                var curIndex = vm.selectTag.indexOf(curItem['objectId']);
+                let curIndex = vm.selectTag.indexOf(curItem['objectId']);
                 vm.selectTag.splice(curIndex, 1);
               }else{
                 vm.selectTag.push(curItem['objectId']);
@@ -193,7 +206,7 @@
               curItem['is_select'] = !curItem['is_select'];
 
             }else{
-              var path= "/admin/tag/detail/" + curItem['objectId'];
+              let path= "/admin/tag/detail/" + curItem['objectId'];
               vm.$router.push(path);
             }
           }

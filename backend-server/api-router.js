@@ -10,7 +10,8 @@ const router = require('express').Router();
 
 // 添加一个模块
 // const content = require('./content')
-const tags = require('./exhibition/tags')
+const tags = require('./admin/tags')
+const articles = require('./admin/articles')
 // const comments = require('./comments')
 
 
@@ -19,8 +20,10 @@ const tags = require('./exhibition/tags')
 
 // 博客文章列表
 // router.get('/content-list', content.contentList)
-
 // router.get('/article/:id', content.article)
+router.post('/article/add', articles.add);
+router.post('/article/detail', articles.detail);
+router.post('/article/update', articles.update);
 
 // tags
 router.get('/tags', tags.tagList);
