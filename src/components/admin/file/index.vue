@@ -1,37 +1,21 @@
 <template>
-  <div class="file">
+  <div class="file" v-loading.fullscreen.lock="is_loading">
     <el-collapse accordion>
-      <el-collapse-item>
-        <template slot="title">
-          2017
+      <el-collapse-item v-for="item in list">
+        <template slot="title" v-cloak>
+          {{item.name}}
         </template>
-        <div class="list-item">
-          <i class="iconfont list-item__icon">&#xe619;</i>
+        <div class="list-item" v-for="article in item.value" @click="goDetail(article)">
+          <i class="iconfont list-item__icon">&#xe74f;</i>
           <div class="list-item__ct">
-            <a class="list-item__header" href="javascript:;">Semantic-Org/Semantic-UI</a>
-            <div class="list-item__description">Updated 10 mins ago</div>
+            <a class="list-item__header" href="javascript:;">
+              {{article.title}}
+              <el-tag type="primary" v-if="article.is_issue">布</el-tag>
+              <el-tag type="primary" v-else>稿</el-tag>
+            </a>
+            <div class="list-item__description">Date - {{article.createdAt | dateFormat}}</div>
           </div>
         </div>
-        <div class="list-item">
-          <i class="iconfont list-item__icon">&#xe619;</i>
-          <div class="list-item__ct">
-            <a class="list-item__header" href="javascript:;">Semantic-Org/Semantic-UI</a>
-            <div class="list-item__description">Updated 10 mins ago</div>
-          </div>
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="2016">
-        <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-        <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-      </el-collapse-item>
-      <el-collapse-item title="效率 Efficiency">
-        <div>简化流程：设计简洁直观的操作流程；</div>
-        <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-        <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-      </el-collapse-item>
-      <el-collapse-item title="可控 Controllability">
-        <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-        <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
       </el-collapse-item>
     </el-collapse>  
 
@@ -47,30 +31,54 @@
 
 <script>
     import "./index.scss"
+    import axios from 'axios'
 
-    /*
-      yearAll{
-        total,
-        data: [
-          {
-            name, 
-            value, 
-            list: [id, title, date]
-          }
-        ] 
-      } 
-     */
-    
+
     export default {
-        name: "fileManage",
-        data() {
-          return {
-          }
-        },
-        methods: {
-        },
-        components: {
+      filters: {
+        dateFormat: function (value) {
+          let dateVal= new Date(value);
+          return dateVal.getFullYear() +'/'+ (dateVal.getMonth()+1) +'/' +dateVal.getDate();
         }
+      },
+      name: "fileManage",
+      data() {
+        return {
+          is_loading: false,
+          list: {}
+        }
+      },
+      mounted() {
+        this.getList();
+      },
+      methods: {
+        getList() {
+          let vm= this;
+          vm.is_loading= true;
+          axios.get('/api/file/list')
+            .then(function (response) {
+              vm.is_loading= false;
+              if (response.status === 200) {
+                vm.list= response.data;
+
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        goDetail(article) {
+          let vm= this;
+          vm.$router.push({
+            path: '/admin/article/preview',
+            query: {
+              id: article.objectId
+            }
+          })
+        }
+      },
+      components: {
+      }
     }
 </script>
 

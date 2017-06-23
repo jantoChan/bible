@@ -19,7 +19,7 @@
     </div>
     <el-row class="edit__action g-mt20 g-mb20"  type="flex" justify="space-around">
       <el-col :span="8" class="edit__action--cancle btn-floating">
-        <i class="iconfont">&#xe69a;</i>
+        <i class="iconfont" @click="goBack">&#xe69a;</i>
       </el-col>
       <el-col :span="8" class="edit__action--draft btn-floating">
         <i class="iconfont"  @click="goDraft">&#xe6fc;</i>
@@ -83,6 +83,7 @@
             is_loading: false,
             articleId: '',
             title: '',
+            abstract: '',
             tags: [],
             name: '',
             content: '',
@@ -104,8 +105,7 @@
               vm.articleId= route.query.articleId;  
               vm.tagAction= 'update';
             };
-            vm.articleId= '594b9355fe88c2005f6c67c5';
-            window.vm=this;
+
             vm.tagList= await vm.getTags();
             vm.renew();
           },
@@ -167,16 +167,20 @@
           saveArticle() {
             let vm= this;
             let tags=[];
-            let data= {};
+            let data= {
+              title: vm.title,
+              content: vm.content,
+              tags: vm.tagSelect,
+              is_issue: vm.is_issue
+            };
 
-            //标签
-
-            data['title']= vm.title;
-            data['content']= vm.content;
-            data['tags']= vm.tagSelect;
-            data['is_issue']= vm.is_issue;
+            if (!!vm.articleId) {
+              data['id']= vm.articleId;
+            }
+            vm.is_loading= true;
             axios.post('/api/article/'+ vm.tagAction, data)
               .then(function (response) {
+                vm.is_loading= false;
                 if (response.status === 200) {
                   let article= response.data;
                   //reset
@@ -206,6 +210,9 @@
               vm.saveArticle();
             }
           },
+          goBack() {
+            this.$router.go(-1);
+          },
           reset() {
             let vm= this;
             vm.title='';
@@ -223,12 +230,10 @@
           tagSelect(val) {
             //objectId搜索对应list
             let vm=this;
-            console.log(val);
             vm.tagSelectObj.splice(0, vm.tagSelectObj.length);
 
             for(let i=0; i<val.length; i++){
               let cur=val[i];
-              console.log(cur);
               vm.tagList.forEach(function(tag) {
                 if (cur== tag['objectId'] ) {
                   vm.tagSelectObj.push(tag);  

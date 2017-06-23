@@ -61,21 +61,20 @@
 
 /* 列表样式 */
 .list-item{
+  @include flex;
+  @include flex-vertical;
+  width: 100%;
+
   @at-root #{&}__icon{
     color: #8492a6;
     font-size: 2em;
-    display: table-cell;
     margin: 0;
-    padding-top: .07142857em;
-    padding-right: .28571429em;
-    vertical-align: top;
+    margin-right: .8em;
     -webkit-transition: color .1s ease;
     transition: color .1s ease;
   }
   @at-root #{&}__ct{
-    display: table-cell;
-    padding: 0 .5em;
-    vertical-align: top;
+    @include flex-item;
     line-height: 1.4em;
   }
   @at-root #{&}__header{
@@ -87,6 +86,10 @@
   @at-root #{&}__description{
     display: block;
     color: rgba(0,0,0,.7);
+  }
+
+  .el-tag{
+    border-radius: 100%;
   }
 }
 

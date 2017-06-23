@@ -12,6 +12,7 @@ const router = require('express').Router();
 // const content = require('./content')
 const tags = require('./admin/tags')
 const articles = require('./admin/articles')
+const files = require('./admin/files')
 // const comments = require('./comments')
 
 
@@ -19,7 +20,7 @@ const articles = require('./admin/articles')
 // router.get('/hello', content.hello);
 
 // 博客文章列表
-// router.get('/content-list', content.contentList)
+router.get('/file/list', files.list);
 // router.get('/article/:id', content.article)
 router.post('/article/add', articles.add);
 router.post('/article/detail', articles.detail);
@@ -27,6 +28,7 @@ router.post('/article/update', articles.update);
 
 // tags
 router.get('/tags', tags.tagList);
+router.get('/tags/detail', tags.tagDetail);
 router.post('/tags/add', tags.tagAdd);
 router.post('/tags/delete', tags.tagDelete);
 

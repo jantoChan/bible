@@ -21,6 +21,18 @@ const pub={
     return articleClass.save();
   },
 
+  updateArticle: (param) => {
+    let articleClass= AV.Object.createWithoutData('Article', param.id);
+    articleClass.set({
+      'title': param.title,
+      'content': param.content,
+      'is_issue': param.is_issue,
+      'date': param.date,
+      'author': param.author
+    })
+    return articleClass.save();
+  },
+
   mapArticleTag: (tagIds, articleObj) => {
     let maplist =[];
     for(let i= 0; i<tagIds.length; i++){
@@ -77,7 +89,7 @@ const pub={
   add: async(req, res) => {
     let param= req.body;
     param.author="janto";
-    param.date=new Date();
+    param.date=new Date().getFullYear();
 
     try {
       let articleObj = await pub.addArticle(param);
@@ -127,14 +139,14 @@ const pub={
   update: async(req, res) => {
     let param= req.body;
     param['author']="janto";
-    param['date']=new Date();
+    param['date']=new Date().getFullYear();
 
     try{
       //reset 重置文章状态
-      await pub.decrementQuote();
-      await pub.deleteMap();
+      await pub.decrementQuote(param.tags);
+      await pub.deleteMap(param.id);
 
-      let articleObj = await pub.addArticle();
+      let articleObj = await pub.updateArticle(param);
 
       if (!!param.tags) {
         await pub.mapArticleTag(param.tags, articleObj);

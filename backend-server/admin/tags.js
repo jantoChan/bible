@@ -1,5 +1,8 @@
 'use strict'
 const AV = require('leanengine')
+const url = require('url')
+const QueryMap= new AV.Query('ArticleTagMap');
+const QueryArticle= new AV.Query('Article');
 
  // 声明类型
 const Tag = AV.Object.extend('Tag');
@@ -77,9 +80,23 @@ const pub={
     } catch (error) {
 
     }
- 
+  },
+  tagDetail: async(req, res) => {
+    let url_param=url.parse(req.url, true).query;
+    let tagInstance=  AV.Object.createWithoutData('Tag', url_param.id);
+    QueryMap.equalTo('tag', tagInstance);
+    QueryMap.include('article');
+    QueryMap.descending('createdAt');
+
+    QueryMap.find().then(function(maps) {
+      //主动序列化 json 列。
+      maps.forEach(function(map){
+        map.set('article', result.get('article') ?  result.get('article').toJSON() : null);
+      });
+      //再返回结果
+       res.json(maps);
+    });
   }
 };
-
  
 module.exports=pub;

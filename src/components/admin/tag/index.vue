@@ -2,7 +2,7 @@
   <div class="tag" v-loading.fullscreen.lock="fullscreenLoading">
     <div class="tag__list" v-show="!is_add" v-if="tagList.length > 0 && !fullscreenLoading">
       <div class="list-item" v-for="(tag, index) in tagList" @click="guideAction(index)">
-        <i class="iconfont list-item__icon">&#xe619;</i>
+        <i class="iconfont list-item__icon">&#xe707;</i>
         <div class="list-item__ct">
           <a class="list-item__header" href="javascript:;" v-text="tag.name"></a>
           <div class="list-item__description" v-cloak>{{tag.quote}}篇文章</div>
