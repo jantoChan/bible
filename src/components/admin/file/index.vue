@@ -6,12 +6,12 @@
           {{item.name}}
         </template>
         <div class="list-item" v-for="article in item.value" @click="goDetail(article)">
-          <i class="iconfont list-item__icon">&#xe74f;</i>
+          <!-- <i class="iconfont list-item__icon">&#xe74f;</i> -->
+          <el-tag type="primary" v-if="article.is_issue" class="g-mr20">布</el-tag>
+          <el-tag type="primary" v-else class="g-mr20">稿</el-tag>
           <div class="list-item__ct">
             <a class="list-item__header" href="javascript:;">
               {{article.title}}
-              <el-tag type="primary" v-if="article.is_issue">布</el-tag>
-              <el-tag type="primary" v-else>稿</el-tag>
             </a>
             <div class="list-item__description">Date - {{article.createdAt | dateFormat}}</div>
           </div>
@@ -60,7 +60,6 @@
               vm.is_loading= false;
               if (response.status === 200) {
                 vm.list= response.data;
-
               }
             })
             .catch(function (error) {
