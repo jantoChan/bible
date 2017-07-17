@@ -110,14 +110,13 @@ const pub={
   detail: async(req, res) => {
     let param= req.body;
     let getArticle= (id)=> {
-      return QueryArticle.get(id)  
+      return QueryArticle.get(id);
     }
 
     let getTagMap= (id)=> {
       let articleInstance=  AV.Object.createWithoutData('Article', id);
       QueryMap.equalTo('article', articleInstance);
-      QueryMap.include('tag'); 
-
+      QueryMap.include(['tag']);
       return QueryMap.find();
     }
 

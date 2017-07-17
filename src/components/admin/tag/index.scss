@@ -177,3 +177,26 @@
   }
 }
 
+.tagDetail{
+  .s-publish{
+    color: #1abc9c;
+  } 
+  .s-draft{
+    color: #8492A6;
+  } 
+  @at-root #{&}__empty{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+    color: #666;
+    line-height: 1.6;
+    font-weight: 700;
+
+    .iconfont{
+      font-size: 48px;
+    }
+  }
+}

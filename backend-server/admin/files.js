@@ -16,7 +16,6 @@ const pub={
      articles.forEach(function(article) {
         let dateItem= article.get('date');
         if (dateNav.indexOf(dateItem) > -1) {
-          console.log(article);
           list[dateItem]['value'].push(article);
         }else{
           list[dateItem]={

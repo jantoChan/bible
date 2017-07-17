@@ -1,18 +1,21 @@
 <template>
   <div class="tagDetail" v-loading.fullscreen.lock="is_loading">
-    <div class="tagDetail__ct g-flex--wrap">
-      <div class="card" v-for="article in articleList">
-        <div class="card__header" v-text="article.title">
-          saldkjf
-        </div> 
+    <div class="tagDetail__ct g-flex--wrap" v-if="articleList.length>0">
+      <div class="card" v-for="article in articleList" @click="routeDetail(article.id)">
+        <div class="card__header">
+          <span v-text="article.title"></span>
+          <i class="iconfont" :class="{'s-publish': article.is_issue, 's-draft': !article.is_issue}">&#xe600;</i>
+        </div>
         <div class="card__meta">
-         <span class="card__meta__author">janto</span> 
-         <span class="card__meta__date">2017/2/1</span> 
+         <span class="card__meta__author" v-text="article.author"></span> 
+         <span class="card__meta__date" v-cloak>{{article.createdAt | dateFormat}}</span> 
         </div> 
-        <div class="card__abstract">
-          本文首先综合介绍模型项目的优先级，模型项目推进的四个要素，并按照优先级顺序依次展开四个要素细节实施过程中需要注意的方方面面。
-        </div> 
+        <div class="card__abstract" v-text="article.content"> </div>
       </div>
+    </div>
+    <div class="tagDetail__empty" v-if="!is_loading && articleList.length<=0">
+      <i class="iconfont">&#xe648;</i>
+      <p>暂未添加文章</p>
     </div>
   </div>
 </template>
@@ -67,6 +70,15 @@
             .catch(function (error) {
               console.log(error);
             });
+        },
+        routeDetail(id) {
+          let vm= this;
+          vm.$router.push({
+            path: '/admin/article/preview',
+            query: {
+              id: id
+            }
+          })
         }
       }
     }

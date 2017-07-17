@@ -45,7 +45,6 @@ const pub={
       let data = await addTags();
 
       if (data) {
-        console.log(data);
         res.json(data);
       } else {
         throw new Error("can not insert tags!");
@@ -78,7 +77,7 @@ const pub={
         throw new Error("can not delete tags!");
       }
     } catch (error) {
-
+        console.log('error', error);
     }
   },
   tagDetail: async(req, res) => {
@@ -89,12 +88,17 @@ const pub={
     QueryMap.descending('createdAt');
 
     QueryMap.find().then(function(maps) {
-      //主动序列化 json 列。
-      maps.forEach(function(map){
-        map.set('article', result.get('article') ?  result.get('article').toJSON() : null);
-      });
-      //再返回结果
-       res.json(maps);
+      let articleFindList=[];
+      for(var i=0; i<maps.length; i++) {
+        let id= maps[i]['attributes']['article']['id'];
+        let createdAt= maps[i]['attributes']['article']['createdAt'];
+        let curArticle = maps[i]['attributes']['article']['attributes'];
+        curArticle['id']= id;
+        curArticle['createdAt']= createdAt;
+        console.log(maps[i]['attributes']['article']);
+        articleFindList.push(curArticle);
+      }
+      res.json(articleFindList);
     });
   }
 };
