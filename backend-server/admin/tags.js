@@ -87,19 +87,20 @@ const pub={
     QueryMap.include('article');
     QueryMap.descending('createdAt');
 
-    QueryMap.find().then(function(maps) {
-      let articleFindList=[];
-      for(var i=0; i<maps.length; i++) {
-        let id= maps[i]['attributes']['article']['id'];
-        let createdAt= maps[i]['attributes']['article']['createdAt'];
-        let curArticle = maps[i]['attributes']['article']['attributes'];
-        curArticle['id']= id;
-        curArticle['createdAt']= createdAt;
-        console.log(maps[i]['attributes']['article']);
-        articleFindList.push(curArticle);
-      }
-      res.json(articleFindList);
-    });
+    try{
+
+      QueryMap.find().then(function(articleList) {
+        articleList.forEach(function(articleEle) {
+          articleEle.set('article', articleEle.get('article') ? articleEle.get('article').toJSON() : null);
+        });
+      res.json(articleList);
+      }).catch(function(err){
+      //返回错误给客户端
+      });
+      //include无效
+    } catch (error) {
+
+    }
   }
 };
  

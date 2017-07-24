@@ -124,6 +124,12 @@ const pub={
       let param= req.body;
       let articleDetail= await getArticle(param.id);
       let tagList= await getTagMap(param.id);
+
+      //include无效
+      //主动序列化 json 列。
+      tagList.forEach(function(tagEle){
+        tagEle.set('tag', tagEle.get('tag') ?  tagEle.get('tag').toJSON() : null);
+      });
       let articleAll={
         'articleDetail': articleDetail,
         'tagList': tagList 

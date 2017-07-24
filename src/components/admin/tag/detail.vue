@@ -1,16 +1,16 @@
 <template>
   <div class="tagDetail" v-loading.fullscreen.lock="is_loading">
     <div class="tagDetail__ct g-flex--wrap" v-if="articleList.length>0">
-      <div class="card" v-for="article in articleList" @click="routeDetail(article.id)">
+      <div class="card" v-for="article in articleList" @click="routeDetail(article['article'].objectId)">
         <div class="card__header">
-          <span v-text="article.title"></span>
-          <i class="iconfont" :class="{'s-publish': article.is_issue, 's-draft': !article.is_issue}">&#xe600;</i>
+          <span v-text="article['article'].title"></span>
+          <i class="iconfont" :class="{'s-publish': article['article'].is_issue, 's-draft': !article['article'].is_issue}">&#xe600;</i>
         </div>
         <div class="card__meta">
-         <span class="card__meta__author" v-text="article.author"></span> 
-         <span class="card__meta__date" v-cloak>{{article.createdAt | dateFormat}}</span> 
+         <span class="card__meta__author" v-text="article['article'].author"></span> 
+         <span class="card__meta__date" v-cloak>{{article['article'].createdAt | dateFormat}}</span> 
         </div> 
-        <div class="card__abstract" v-text="article.content"> </div>
+        <div class="card__abstract" v-text="article['article'].content"> </div>
       </div>
     </div>
     <div class="tagDetail__empty" v-if="!is_loading && articleList.length<=0">

@@ -14,14 +14,20 @@
         <h1 class="article__title" v-text="articleDetail.title"></h1>
         <div class="article__info-mobile">
           <div v-cloak>{{articleDetail.createdAt | dateFormat}}</div>
-          <a href="/user/5875dfc7a22b9d0058a96d06" target="_blank" class="g-ml10" v-text="articleDetail.author"></a>
+          <a href="javascript:;" target="_blank" class="g-ml10" v-text="articleDetail.author"></a>
         </div>
-        <div v-text="articleDetail.content">
+        <div v-html="articleContent">
         </div>
         <div class="article__tags">
           <div class="article__tag" v-for="tag in tagList">
-            <a target="_blank" class="article__tag-link">前端</a>
+            <router-link :to="'/admin/tag/detail/' + tag['tag']['objectId']" class="article__tag-link" v-text="tag['tag']['name']"></router-link>
           </div>
+        </div>
+      </div>
+      <!-- 编辑 -->
+      <div class="tag__action">
+        <div class="btn-floating g-mb10" @click="edit">
+          <i class="iconfont">&#xe69e;</i>
         </div>
       </div>
     </div>
@@ -32,7 +38,12 @@
   import "./index.scss";
 
   import axios from "axios";
-
+  var marked = require('marked');
+  marked.setOptions({
+    highlight: function (code) {
+      return require('highlight.js').highlightAuto(code).value;
+    }
+  }); 
   export default {
     filters: {
       dateFormat: function (value) {
@@ -45,6 +56,7 @@
       return {
         is_loading: false,
         objectId: "",
+        articleContent: "",
         articleDetail: {},
         tagList: []
       }
@@ -62,8 +74,8 @@
           .then(function (response) {
             vm.is_loading= false;
             if (response.status === 200) {
-              console.log(response);
               vm.articleDetail= response['data']['articleDetail'];
+              vm.articleContent= marked(response['data']['articleDetail']['content']);
               vm.tagList= response['data']['tagList'];
             }
           })
@@ -73,7 +85,15 @@
               type: 'error'
             });
           });
-
+      },
+      edit() {
+        let vm=this;
+        vm.$router.push({
+          path: '/admin/article/edit',
+          query: {
+            id: vm.articleDetail.objectId
+          }
+        })
       }
     },
   }
