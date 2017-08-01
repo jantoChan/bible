@@ -71,7 +71,7 @@
           vm.$router.push({
             path: '/admin/article/preview',
             query: {
-              id: article.objectId
+              articleId: article.objectId
             }
           })
         }

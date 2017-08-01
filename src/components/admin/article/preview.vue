@@ -1,5 +1,5 @@
 <template>
-  <div class="preview">
+  <div class="preview" v-loading.fullscreen.lock="is_loading">
     <div class="preview__ct">
       <div class="author">
         <div class="list-item">
@@ -16,8 +16,7 @@
           <div v-cloak>{{articleDetail.createdAt | dateFormat}}</div>
           <a href="javascript:;" target="_blank" class="g-ml10" v-text="articleDetail.author"></a>
         </div>
-        <div v-html="articleContent">
-        </div>
+        <div v-compiledMarkdown> {{articleDetail.contents}} </div>
         <div class="article__tags">
           <div class="article__tag" v-for="tag in tagList">
             <router-link :to="'/admin/tag/detail/' + tag['tag']['objectId']" class="article__tag-link" v-text="tag['tag']['name']"></router-link>
@@ -39,11 +38,8 @@
 
   import axios from "axios";
   var marked = require('marked');
-  marked.setOptions({
-    highlight: function (code) {
-      return require('highlight.js').highlightAuto(code).value;
-    }
-  }); 
+  import highlight from 'highlight.js';
+
   export default {
     filters: {
       dateFormat: function (value) {
@@ -63,8 +59,24 @@
     },
     created(){
       let vm= this;
-      vm.objectId= vm.$route.query.id;
+      vm.objectId= vm.$route.query.articleId;
       vm.getContents();
+    },
+    mouted() {
+      marked.setOptions({
+          renderer: new marked.Renderer(),
+          gfm: true,
+          tables: true,
+          breaks: false,
+          pedantic: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+          // 代码语法高亮
+          highlight: function (code) {
+              return highlight.highlightAuto(code).value;
+          }
+      });
     },
     methods: {
       getContents() {
@@ -88,13 +100,25 @@
       },
       edit() {
         let vm=this;
+        console.log(vm.articleDetail.objectId);
         vm.$router.push({
           path: '/admin/article/edit',
           query: {
-            id: vm.articleDetail.objectId
+            articleId: vm.articleDetail.objectId
           }
         })
       }
     },
+    watch: {
+      '$route': 'getContents'
+    },
+    directives: {
+        compiledMarkdown: {
+            bind: function(el){
+                console.log(el);
+                el.innerHTML = marked(el.innerText);
+            }
+        }
+    }
   }
 </script>

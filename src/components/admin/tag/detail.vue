@@ -64,7 +64,6 @@
             .then(function (response) {
               vm.is_loading= false;
               vm.articleList= response.data;
-              console.log(response);
 
             })
             .catch(function (error) {
@@ -76,7 +75,7 @@
           vm.$router.push({
             path: '/admin/article/preview',
             query: {
-              id: id
+              articleId: id
             }
           })
         }
