@@ -56,7 +56,7 @@ import axios from 'axios'
 
 export default {
   name: 'app',
-  data() {
+  data(){
     return{
       is_nav: false,
       user: {},

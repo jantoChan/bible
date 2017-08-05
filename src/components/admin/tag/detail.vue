@@ -54,14 +54,16 @@
       methods: {
         getDetail() {
           let vm= this;
+          console.log(111111);
           let data= {
             id: vm.objectId
           };
-          vm.is_loading= true;
+          // vm.is_loading= true;
           axios.get('/api/tags/detail', {
               params: data
             })
             .then(function (response) {
+              console.log(response)
               vm.is_loading= false;
               vm.articleList= response.data;
 
