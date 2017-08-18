@@ -8,6 +8,7 @@ var FileStore = require('session-file-store')(session);
 var app = express();
 var fs = require('fs');
 var config = require('./config');
+var async = require('async');
 
 /* 定义变量 */
 var resolve = file => path.resolve(__dirname, file);
