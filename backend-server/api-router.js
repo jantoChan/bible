@@ -22,6 +22,9 @@ const files = require('./admin/files')
 // 博客文章列表
 router.get('/file/list', files.list);
 // router.get('/article/:id', content.article)
+
+//article
+router.get('/article', articles.articleList);
 router.post('/article/add', articles.add);
 router.post('/article/detail', articles.detail);
 router.post('/article/update', articles.update);

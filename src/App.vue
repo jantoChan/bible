@@ -22,15 +22,15 @@
               </div>
               <ul class="user__count">
                 <li class="user__count__child">
-                  <p class="user__count__txt">0</p>
+                  <p class="user__count__txt" v-cloak v-text="articleNum"></p>
                   <i class="iconfont">&#xe6a2;</i>
                 </li>                   
                 <li class="user__count__child">
-                  <p class="user__count__txt">0</p>
+                  <p class="user__count__txt" v-cloak v-text="tagNum"></p>
                   <i class="iconfont">&#xe6c5;</i>
                 </li>                   
                 <li class="user__count__child">
-                  <p class="user__count__txt">0</p>
+                  <p class="user__count__txt" v-cloak v-text="fileNum"></p>
                   <i class="iconfont">&#xe6c3;</i>
                 </li>                   
               </ul>
@@ -64,18 +64,55 @@ export default {
         {to: '/', name: '首页'},
         {to: '/file', name: '归档'},
         {to: '/tag', name: '标签'},
-        {to: '/about', name: '关于我'},
-        {to: '/article', name: '文章'}
-      ]
+        {to: '/about', name: '关于我'}
+        // {to: '/article', name: '文章'}
+      ],
+      tagNum: 0,
+      articleNum: 0,
+      fileNum: 0
     }
   },
   methods: {
-    getUser() {
+    getTags() {
       var vm=this;
       //请求api获取用户数据
+      axios.get('/api/tags')
+        .then(function (response) {
+          vm.tagNum= response.data.length;
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+    getArticles() {
+      var vm= this;
+      axios.get('/api/article')
+      .then(function (response) {
+        vm.articleNum= response.data.length;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+    },
+    getFiles() {
+      var vm= this;
+      axios.get('/api/file/list')
+      .then(function (response) {
+        //es6 枚举属性
+        vm.fileNum= Object.keys(response.data).length;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
     }
   },
   components: {
+  },
+  mounted() {
+    var vm= this;
+    vm.getTags();
+    vm.getArticles();
+    vm.getFiles();
   }
 }
 </script>

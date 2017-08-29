@@ -19,9 +19,9 @@ var resolve = file => path.resolve(__dirname, file);
 require('babel-core/register');
 
 // // 设置 view 引擎
-app.set('views', resolve('../views'));
-app.engine('.html', ejs.__express);
-app.set('view engine', 'html');
+// app.set('views', resolve('../views'));
+// app.engine('.html', ejs.__express);
+// app.set('view engine', 'html');
 
 // 加载云代码方法
 // require('./cloud');
@@ -78,7 +78,7 @@ app.get('/admin/*', function(req, res) {
     //     var html = fs.readFileSync(resolve('./' + 'login.html'), 'utf-8');
     // }
     // res.send(html);
-    res.render('admin')
+    res.render('admin');
 });
 
 app.get('*', function(req, res) {
