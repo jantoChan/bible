@@ -45,15 +45,6 @@ var router = new VueRouter({
   ]
 })
 
-axios.get('/api/tags')
-  .then(function (response) {
-    console.log('success');
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
- 
 new Vue({
     el: '#app',
     router,

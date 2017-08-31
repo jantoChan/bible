@@ -1,63 +1,75 @@
 <template>
-  <div class="file">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="'201'+n" :name="n+''" class="g-flex--wrap g-mb20" v-for="n in 5">
-          <div class="card" v-for="n in 5">
-            <div class="card__header">
-              saldkjf
-            </div> 
-            <div class="card__meta">
-             <span class="card__meta__author">janto</span> 
-             <span class="card__meta__date">2017/2/1</span> 
-            </div> 
-            <div class="card__abstract">
-              本文首先综合介绍模型项目的优先级，模型项目推进的四个要素，并按照优先级顺序依次展开四个要素细节实施过程中需要注意的方方面面。
-            </div> 
+  <div class="file" v-loading.fullscreen.lock="is_loading">
+    <el-collapse accordion>
+      <el-collapse-item v-for="item in list">
+        <template slot="title" v-cloak>
+          {{item.name}}
+        </template>
+        <div class="list-item" v-for="article in item.value" @click="goDetail(article)">
+          <!-- <i class="iconfont list-item__icon">&#xe74f;</i> -->
+          <el-tag type="primary" v-if="article.is_issue" class="g-mr20">布</el-tag>
+          <el-tag type="primary" v-else class="g-mr20">稿</el-tag>
+          <div class="list-item__ct">
+            <a class="list-item__header" href="javascript:;">
+              {{article.title}}
+            </a>
+            <div class="list-item__description">Date - {{article.createdAt | dateFormat}}</div>
           </div>
-        </el-tab-pane>
-      </el-tabs>
+        </div>
+      </el-collapse-item>
+    </el-collapse>  
   </div>
 </template>
 
 <script>
-import "./index.scss"
+    import "./index.scss"
+    import axios from 'axios'
 
-/*
-  file{
-     yearlist{
-        value,
-        id,
-        name
-     }
-     year: {
-        limit,
-        total,
-        page,
-        data: [
-          {title, author, date, abstract, id, is_publish}
-        ]
-     }
-  }
- */
 
-export default {
-  name: 'File',
-  data() {
-    return {
-      activeName: '1'
-    };
-  },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    },
-    getNav() {
-      
-    },
-    getList() {
-            
+    export default {
+      filters: {
+        dateFormat: function (value) {
+          let dateVal= new Date(value);
+          return dateVal.getFullYear() +'/'+ (dateVal.getMonth()+1) +'/' +dateVal.getDate();
+        }
+      },
+      name: "fileManage",
+      data() {
+        return {
+          is_loading: false,
+          list: {}
+        }
+      },
+      mounted() {
+        this.getList();
+      },
+      methods: {
+        getList() {
+          let vm= this;
+          vm.is_loading= true;
+          axios.get('/api/file/list')
+            .then(function (response) {
+              vm.is_loading= false;
+              if (response.status === 200) {
+                vm.list= response.data;
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        },
+        goDetail(article) {
+          let vm= this;
+          vm.$router.push({
+            path: '/admin/article/preview',
+            query: {
+              articleId: article.objectId
+            }
+          })
+        }
+      },
+      components: {
+      }
     }
-  }
-}
 </script>
 

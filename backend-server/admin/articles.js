@@ -163,9 +163,16 @@ const pub={
         throw new Error("sorry, we've got a problem ~")
       }
     }  catch (error) {
-
     }
     
+  },
+
+  articleList(req ,res) {
+      QueryArticle.find().then(function (articles) {
+        res.json(articles);
+      }, function (error) {
+        throw new Error("sorry, we've got a problem ~")
+      });
   }
 
 }
