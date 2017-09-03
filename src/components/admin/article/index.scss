@@ -198,14 +198,48 @@
         margin-bottom: .6rem;
         line-height: 1.5;
       }
-     @at-root #{&}__info-mobile{
-      display: none;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      margin: .6rem 0 1.6rem;
-      font-size: 1.2rem;
-     }
+      @at-root #{&}__info-mobile{
+        display: none;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin: .6rem 0 1.6rem;
+        font-size: 1.2rem;
+      }
+      @at-root #{&}__content{
+        color: #24292e;
+        line-height: 1.5;
+        font-size: 16px;
+        pre{
+          padding: 16px;
+          overflow: auto;
+          font-size: 85%;
+          line-height: 1.45;
+          background-color: #f6f8fa;
+          border-radius: 3px;
+          word-wrap: normal;
+          margin-bottom: 16px;
+        }
+        p{
+          line-height: 2.27rem;
+          margin-bottom: 16px;
+        }
+        ul,ol {
+          padding-left: 2.7rem;
+        }
+        li{
+          margin-bottom: .6rem;
+          list-style: square;
+        }
+        a{
+          color: #259;
+        }
+        img{
+          max-height: 668px;
+          max-width: 100%!important;
+          margin: 0!important;
+        }
+      }
     }
   }
 }
