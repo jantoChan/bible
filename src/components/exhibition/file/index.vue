@@ -61,7 +61,7 @@
         goDetail(article) {
           let vm= this;
           vm.$router.push({
-            path: '/admin/article/preview',
+            path: '/article',
             query: {
               articleId: article.objectId
             }

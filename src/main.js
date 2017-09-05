@@ -9,9 +9,10 @@ Vue.use(ElementUI)
 import VueRouter from 'vue-router';
 const Home = resolve => require(["components/exhibition/home/index.vue"], resolve)
 const File = resolve => require(["components/exhibition/file/index.vue"], resolve)
-const Tag = resolve => require(["components/exhibition/tag/index.vue"], resolve)
 const About = resolve => require(["components/exhibition/about/index.vue"], resolve)
 const Article = resolve => require(["components/exhibition/article/index.vue"], resolve)
+const tagManage = resolve => require(["components/exhibition/tag/manage.vue"], resolve) 
+const tagDetail = resolve => require(["components/exhibition/tag/detail.vue"], resolve) 
 
 Vue.use(VueRouter)
 var router = new VueRouter({
@@ -30,7 +31,12 @@ var router = new VueRouter({
     {
       path: '/tag',
       name: 'tag',
-      component: Tag
+      component: tagManage
+    },
+    {
+      path: '/tag/detail',
+      name: 'tagDetail',
+      component: tagDetail
     },
     {
       path: '/about',
