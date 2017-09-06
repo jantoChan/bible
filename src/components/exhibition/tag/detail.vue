@@ -48,7 +48,7 @@
           let data= {
             id: vm.objectId
           };
-          // vm.is_loading= true;
+          vm.is_loading= true;
           axios.get('/api/tags/detail', {
               params: data
             })
@@ -58,7 +58,7 @@
 
             })
             .catch(function (error) {
-              console.log(error);
+              console.error(error);
             });
         },
         routeDetail(id) {

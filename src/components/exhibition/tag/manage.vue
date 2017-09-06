@@ -78,24 +78,16 @@
           guideAction(index) {
             let vm=this;
             let curItem=vm.tagList[index];
-            if (vm.is_edit) {
-              //编辑状态
-              if (curItem['is_select']) {
-                let curIndex = vm.selectTag.indexOf(curItem['objectId']);
-                vm.selectTag.splice(curIndex, 1);
-              }else{
-                vm.selectTag.push(curItem['objectId']);
-              }
-              curItem['is_select'] = !curItem['is_select'];
-
-            }else{
-              vm.$router.push({
-                path: '/tag/detail',
-                query: {
-                  tagId: curItem['objectId']
-                }
-              })
+            if (!curItem.quote) {
+              vm.$message('抱歉，该标签暂无相关文章 ～');
+              return false;
             }
+            vm.$router.push({
+              path: '/tag/detail',
+              query: {
+                tagId: curItem['objectId']
+              }
+            })
           }
         }
     }
