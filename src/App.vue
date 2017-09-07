@@ -4,7 +4,7 @@
       <div class="page-container page-component">
         <div class="nav-header">
             <div class="nav-header__icon" @click="is_nav = !is_nav">
-              <i class="iconfont">&#xe696;</i>
+              <i class="iconfont">&#xe601;</i>
             </div>
             <div class="nav-header__title">
               Janto

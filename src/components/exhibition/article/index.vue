@@ -19,7 +19,7 @@
         <div v-html="articleContent" class="article__content"></div>
         <div class="article__tags">
           <div class="article__tag" v-for="tag in tagList">
-            <router-link :to="'/admin/tag/detail/' + tag['tag']['objectId']" class="article__tag-link" v-text="tag['tag']['name']"></router-link>
+            <router-link :to="'/tag/detail?tagId=' + tag['tag']['objectId']" class="article__tag-link" v-text="tag['tag']['name']"></router-link>
           </div>
         </div>
       </div>
@@ -89,8 +89,6 @@
               vm.articleDetail= response['data']['articleDetail'];
               vm.articleContent= marked(response['data']['articleDetail']['content']);
               vm.tagList= response['data']['tagList'];
-              console.log(vm.articleDetail.content);
-              console.log(vm.articleContent);
             }
           })
           .catch(function (error) {

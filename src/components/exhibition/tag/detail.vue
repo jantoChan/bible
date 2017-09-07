@@ -4,7 +4,7 @@
       <div class="card" v-for="article in articleList" @click="routeDetail(article['article'].objectId)">
         <div class="card__header">
           <span v-text="article['article'].title"></span>
-          <i class="iconfont" :class="{'s-publish': article['article'].is_issue, 's-draft': !article['article'].is_issue}">&#xe600;</i>
+          <!-- <i class="iconfont" :class="{'s-publish': article['article'].is_issue, 's-draft': !article['article'].is_issue}">&#xe600;</i> -->
         </div>
         <div class="card__meta">
          <span class="card__meta__author" v-text="article['article'].author"></span> 
