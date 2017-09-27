@@ -1,66 +1,54 @@
 import Vue from 'vue'
+import axios from './http'
+import store from './store/store'
+import * as types from './store/types'
 import ElementUI  from 'element-ui'
 import App from './Admin.vue'
+import router from './router'
 import 'element-ui/lib/theme-default/index.css'
 import './main.scss'
+import { mapState } from 'vuex'
 Vue.use(ElementUI)
-
-import VueRouter from 'vue-router'
-const tagManage = resolve => require(["components/admin/tag/index.vue"], resolve)
-const tagDetail = resolve => require(["components/admin/tag/detail.vue"], resolve)
-const fileManage = resolve => require(["components/admin/file/index.vue"], resolve)
-const articleEdit = resolve => require(["components/admin/article/edit.vue"], resolve)
-const articlePreview = resolve => require(["components/admin/article/preview.vue"], resolve)
-const Login = resolve => require(["components/admin/login/index.vue"], resolve)
-
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  mode: 'history',
-  routes: [
-    {
-      path: '/admin/login',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/admin/tag',
-      name: 'tag',
-      component: tagManage
-    },
-    {
-      path: '/admin/tag/detail/:id',
-      name: 'tagDetail',
-      component: tagDetail
-    },
-    {
-      path: '/admin/file',
-      name: 'file',
-      component: fileManage
-    },
-    {
-      path: '/admin/article/edit',
-      name: 'articleEdit',
-      component: articleEdit
-    },
-    {
-      path: '/admin/article/preview',
-      name: 'articlePreview',
-      component: articlePreview
-    }
-  ]
-})
+Vue.prototype.axios = axios;
 
 new Vue({
     el: '#app',
+    axios,
     router,
+    store,
     data() {
       return{
         content: {}
       }
     },
-    mounted: function()  {
-      var vm=this;
+    created() {
+    },
+    methods: {
+      getToken() {
+        let vm= this;
+        axios.get('/api/github/access_token')
+          .then(function (response) {
+            if (!!response.data.status) {
+              let responseDat= response.data.response;
+              vm.$store.commit(types.LOGIN, responseDat.token);
+            }else{
+              vm.$router.push({
+                path: '/admin/login'
+              })
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      route() {
+        let vm= this;
+        if (vm.route.query.redirect) {
+          vm.$router.push({
+            path: '/admin/login'
+          })
+        }
+      }
     },
     render: h => h(App)
 })

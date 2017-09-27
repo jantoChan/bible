@@ -4,7 +4,7 @@
       <div class="page-container page-component">
         <div class="header">
           <div class="header__ct">
-            <div class="header__logo">管理后台</div>
+            <div class="header__logo"><router-link to="/admin">管理后台</router-link></div>
             <div class="header__main-nav">
               <div class="header__navigation">
                 <!-- <router-link class="header__nav-item" to="/admin/article/edit"><i class="iconfont">&#xe609;</i></router-link> -->

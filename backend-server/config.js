@@ -1,9 +1,3 @@
-/**
- * 每位工程师都有保持代码优雅的义务
- * Each engineer has a duty to keep the code elegant
- *
- * @author wangxiao
- */
 
 // 所有的配置
 
@@ -24,7 +18,13 @@ let config = {
     // 以下两个是在 LeanCloud 中配置的 host，xxx 替换为自己的域名
     'http://stg-bible.leanapp.cn',
     'http://bible.leanapp.cn'
-  ]
+  ],
+
+  //github
+  'client_id': '574b4707eb7c5011c7e0',
+  'client_secret': '25bc929871115cb7e14c948bdb31d16f5a0e5bfd',
+  'scope': ['user'],
+
 };
 
 // 判断环境

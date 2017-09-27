@@ -7,12 +7,14 @@
 'use strict';
 
 const router = require('express').Router();
+// const config = require('../config');
 
 // 添加一个模块
 // const content = require('./content')
-const tags = require('./admin/tags')
-const articles = require('./admin/articles')
-const files = require('./admin/files')
+const tags = require('../admin/tags')
+const articles = require('../admin/articles')
+const files = require('../admin/files')
+const githubs = require('../admin/githubs');
 // const comments = require('./comments')
 
 
@@ -41,5 +43,11 @@ router.post('/tags/delete', tags.tagDelete);
 // router.get('/comments/:articleId', comments.commentsList)
 
 // router.post('/comments/submitComment',comments.submitComment )
+
+
+//githubs 
+router.get('/github/login', githubs.login);
+router.get('/github/access_token', githubs.getToken);
+router.post('/github/user', githubs.getUser);
 
 module.exports = router;
