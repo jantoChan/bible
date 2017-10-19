@@ -29,7 +29,7 @@ app.use(AV.express());
 // 加载 cookieSession 以支持 AV.User 的会话状态
 // app.use(AV.Cloud.CookieSession({ secret: '05XgTktKPMkU', maxAge: 3600000, fetchUser: true }));
 
-app.use(cookieParser());
+app.use(cookieParser('bibile'));
 app.use(session({
     secret: 'bible', //secret的值建议使用随机字符串
     name: 'bible-login',
@@ -88,7 +88,6 @@ app.use('/admin', function(req, res, next) {
     // res.redirect('/admin/login');
     res.render('admin');
 });
-
 
 //博客首页
 app.use('/', function(req, res) {

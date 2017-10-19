@@ -51,7 +51,8 @@ router.get('/github/callback', async (req, res) => {
             token: bodyObj.access_token
           };
           // res.body = bodyObj.access_token;
-          res.cookie('access_token', bodyObj.access_token, {secure: false,domain: 'http://192.168.1.106:3003',path: '/', expires: new Date(Date.now() + 900000) });
+          console.log('token', bodyObj.access_token);
+          res.cookie('access_token', bodyObj.access_token, {domain: 'bible.leanapp.cn', path: '/', secure: false, expires: new Date(Date.now() + 900000), httpOnly: false, maxAge:900000 }) ;
         }
         res.redirect('/admin');
     })
