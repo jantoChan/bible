@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="particles" id="particles"></div>
     <div class="main-cnt g-pt40">
       <div class="page-container page-component">
         <div class="nav-header">
@@ -51,6 +52,10 @@
 </template>
 
 <script>
+//引入粒子运动插件
+import particles from "particles.js"
+import particlesJson from "assets/json/particles.json"
+
 import "src/main.scss"
 import axios from 'axios'
 
@@ -110,6 +115,7 @@ export default {
   },
   mounted() {
     var vm= this;
+    particlesJS('particles', particlesJson);
     vm.getTags();
     vm.getArticles();
     vm.getFiles();

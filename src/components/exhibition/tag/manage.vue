@@ -72,7 +72,7 @@
               })
               .catch(function (error) {
                 vm.fullscreenLoading=false;
-                console.log(error);
+                console.error(error);
               });
           },
           guideAction(index) {

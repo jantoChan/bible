@@ -19,7 +19,7 @@
         <p>GitHub</p>
       </div> 
       <div class="cell__ft">
-        czengtao@163.com
+        <a href="https://github.com/jantoChan">https://github.com/jantoChan</a>
       </div> 
     </div>    
 
