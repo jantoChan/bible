@@ -22,7 +22,7 @@
     </a>
     <a :href="identity_url" @click="setLoading">
      <el-button class="btn login__btn">
-       <i class="iconfont">&#xe8ee;</i>
+       <i class="iconfont">&#xe69f;</i>
      </el-button>
     </a>
   </div>
