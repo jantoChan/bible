@@ -3,7 +3,8 @@
         <div class="home__card-cont">
             <div class="home__card-cont__card" v-for="(item, index) in project" :key="index">
                 <div class="cover">
-                    <img :src="item.pic" class="image" :class="{'s-code': !item.isWap}">
+                    <img :src="item.pic" class="image" :class="{'s-code': !item.isWap}" v-if="!item.isWap">
+                    <span v-else>{{item.title}}</span>
                 </div> 
                 <div class="bottom">
                     <span class="iconfont" v-if="item.isWap">&#xe603;</span>
@@ -36,6 +37,13 @@ export default {
                 'title': '博客小程序版',
                 'date': '2017-11',
                 'pic': 'http://img.hb.aicdn.com/f489f3124ca18a06d706da14fd2476a194d14cf016db-nm8fxK_fw658'
+            },
+            {
+                'isWap': true,
+                'title': '作品集',
+                'date': '2018-03',
+                'href': 'http://demos.leanapp.cn'
+
             }
         ] 
     }
