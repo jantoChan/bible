@@ -15,7 +15,7 @@
           <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-6">
             <div class="user">
               <div class="user__head">
-                <span class="user__head__img"></span>                
+                <span class="user__head__img">此处是头像</span>                
               </div>
               <div class="user__name">
                 <span class="user__name__nick">janto-Chan</span>
@@ -115,7 +115,7 @@ export default {
   },
   mounted() {
     var vm= this;
-    particlesJS('particles', particlesJson);
+    // particlesJS('particles', particlesJson);
     vm.getTags();
     vm.getArticles();
     vm.getFiles();
