@@ -57,7 +57,15 @@ app.set('view engine', 'html');
 //支持前端 router history模式
 app.use(history({
   rewrites: [
-    { from: /^\/admin/, to: '/admin' },
+    { from: /^\/admin/, to: '/admin'},
+    { from: /^\/api\/file\/list/, to: '/api/file/list'},
+    { from: /^\/api\/tags\/detail.*$/, to: function(context) {
+      return context.parsedUrl.path
+    }},
+    { from: /^\/api\/tags/, to: '/api/tags'},
+    { from: /^\/api\/article\/detail.*$/, to: function(context) {
+      return context.parsedUrl.path
+    }},
     { from: /^\/oauth\/github\/login/, to: '/oauth/github/login' },
     { from: /^\/oauth\/github\/callback/, to: '/oauth/github/callback' },
     { from: /^\//, to: '/' }

@@ -1,16 +1,16 @@
 <template>
   <div class="tagDetail" v-loading.fullscreen.lock="is_loading">
+    <div class="tagDetail__title">
+      XXX <small>标签</small>
+    </div>
     <div class="tagDetail__ct g-flex--wrap" v-if="articleList.length>0">
-      <div class="card" v-for="article in articleList" @click="routeDetail(article['article'].objectId)">
-        <div class="card__header">
-          <span v-text="article['article'].title"></span>
-          <!-- <i class="iconfont" :class="{'s-publish': article['article'].is_issue, 's-draft': !article['article'].is_issue}">&#xe600;</i> -->
+      <div class="list-item" v-for="article in articleList" @click="routeDetail(article['article'].objectId)">
+        <div class="list-item__ct">
+          <a class="list-item__header" href="javascript:;">
+            {{article['article'].title}}
+          </a>
+          <div class="list-item__description">Date - {{article['article'].createdAt | dateFormat}}</div>
         </div>
-        <div class="card__meta">
-         <span class="card__meta__author" v-text="article['article'].author"></span> 
-         <span class="card__meta__date" v-cloak>{{article['article'].createdAt | dateFormat}}</span> 
-        </div> 
-        <div class="card__abstract" v-text="article['article'].content.slice(0,150)+'...'"> </div>
       </div>
     </div>
     <div class="tagDetail__empty" v-if="!is_loading && articleList.length<=0">
@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-    import "src/components/admin/tag/index.scss"
+    import "src/components/exhibition/tag/index.scss"
     import axios from 'axios'
 
     export default {

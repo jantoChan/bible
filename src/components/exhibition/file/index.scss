@@ -5,7 +5,20 @@
   
   .list-item{
     margin-bottom: 10px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 12px rgba(0,0,0,.1); 
+
+    &__header{
+      line-height: 2;
+    }
   }
   
 }
 
+@media (max-width: 767px){
+  .file{
+    margin: 0 10px;
+  }
+}

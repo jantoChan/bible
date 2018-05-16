@@ -10,7 +10,6 @@ const QueryTag = new AV.Query('Tag');
 
 const pub={
   tagList: async(req, res) => {
-
     // 构建内嵌查询
     QueryTag.find();
 
@@ -82,6 +81,7 @@ const pub={
   },
   tagDetail: async(req, res) => {
     let url_param=url.parse(req.url, true).query;
+    console.log(url_param);
     let tagInstance=  AV.Object.createWithoutData('Tag', url_param.id);
     QueryMap.equalTo('tag', tagInstance);
     QueryMap.include('article');

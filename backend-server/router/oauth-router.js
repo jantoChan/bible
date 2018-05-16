@@ -28,7 +28,8 @@ router.get('/github/callback', async (req, res) => {
         client_id: config.client_id,
         client_secret: config.client_secret,
         code: code
-    }
+    };
+    console.log(params.code);
     await fetch(path, {
         method: 'POST',
         headers: {
@@ -52,9 +53,9 @@ router.get('/github/callback', async (req, res) => {
           };
           // res.body = bodyObj.access_token;
           console.log('token', bodyObj.access_token);
-          res.cookie('access_token', bodyObj.access_token, {domain: 'bible.leanapp.cn', path: '/', secure: false, expires: new Date(Date.now() + 900000), httpOnly: false, maxAge:900000 }) ;
+          res.cookie('access_token', bodyObj.access_token, {domain: 'localhost', path: '/', secure: false, expires: new Date(Date.now() + 900000), httpOnly: false, maxAge:900000 }) ;
         }
-        res.redirect('/admin');
+        // res.redirect('/admin');
     })
     .catch(e => {
         console.log(e);

@@ -6,14 +6,19 @@
           <i class="iconfont list-item__icon">&#xe70e;</i>
           <div class="list-item__ct">
             <a class="list-item__header" href="javascript:;" v-text="articleDetail.author"></a>
-            <div class="list-item__description" v-cloak>{{articleDetail.createdAt | dateFormat}}</div>
+            <div class="list-item__description" v-cloak>
+              {{articleDetail.createdAt | dateFormat}}
+              <span>阅读 {{articleDetail.viewCount}}</span>
+            </div>
           </div>
         </div>
       </div>
       <div class="article">
         <h1 class="article__title" v-text="articleDetail.title"></h1>
         <div class="article__info-mobile">
-          <div v-cloak>{{articleDetail.createdAt | dateFormat}}</div>
+          <div v-cloak>
+            {{articleDetail.createdAt | dateFormat}}
+          </div>
           <a href="javascript:;" target="_blank" class="g-ml10" v-text="articleDetail.author"></a>
         </div>
         <div v-html="articleContent" class="article__content"></div>
@@ -38,7 +43,7 @@
     filters: {
       dateFormat: function (value) {
         let dateVal= new Date(value);
-        return dateVal.getFullYear() +'年 '+ (dateVal.getMonth()+1) +'月 ' +dateVal.getDate()+'日';
+        return dateVal.getFullYear() +'-'+ (dateVal.getMonth()+1) +'-' +dateVal.getDate();
       }
     },
     name: "Article",

@@ -1,61 +1,96 @@
 <template>
-  <div id="app">
-    <div class="particles" id="particles"></div>
-    <div class="main-cnt g-pt40">
-      <div class="page-container page-component">
-        <div class="nav-header">
-            <div class="nav-header__icon" @click="is_nav = !is_nav">
-              <i class="iconfont">&#xe601;</i>
+  <div id="app" class="app" :class="{'z-on': is_toggle}">
+    <!-- 头部 -->
+    <div class="headband"></div>
+    <header id="header" class="header">
+      <div class="header__inner"> 
+        <div class="site">
+          <div class="site__meta ">
+            <div class="custom-logo-site-title">
+              <a href="https://github.com/jantoChan" class="brand" rel="start">
+                <span class="site__title">JantoChan's blog</span>
+              </a>
             </div>
-            <div class="nav-header__title">
-              Janto
-            </div>
+                <h1 class="site__subtitle">github.com/jantoChan</h1>
+          </div>
+          <div class="site__nav-toggle" @click="is_nav=!is_nav">
+            <button class="site__button">
+              <span class="site__bar"></span>
+              <span class="site__bar"></span>
+              <span class="site__bar"></span>
+            </button>
+          </div>
         </div>
-        <el-row :gutter="20">
-          <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-6">
-            <div class="user">
-              <div class="user__head">
-                <span class="user__head__img">此处是头像</span>                
-              </div>
-              <div class="user__name">
-                <span class="user__name__nick">janto-Chan</span>
-                <p class="user__name__job">页面仔升级版</p>
-              </div>
-              <ul class="user__count">
-                <li class="user__count__child">
-                  <p class="user__count__txt" v-cloak v-text="articleNum"></p>
-                  <i class="iconfont">&#xe6a2;</i>
-                </li>                   
-                <li class="user__count__child">
-                  <p class="user__count__txt" v-cloak v-text="tagNum"></p>
-                  <i class="iconfont">&#xe6c5;</i>
-                </li>                   
-                <li class="user__count__child">
-                  <p class="user__count__txt" v-cloak v-text="fileNum"></p>
-                  <i class="iconfont">&#xe6c3;</i>
-                </li>                   
-              </ul>
-              <transition name="el-zoom-in-top">
-                <div class="nav" v-show="is_nav" @click="is_nav=false">
-                  <router-link v-for="(item ,index) in router"  class="nav__item" v-text="item.name" :to="item.to"></router-link>
-                </div>
-              </transition>
-            </div>
-          </el-col>
-          <el-col class="el-col el-col-24 el-col-xs-24 el-col-sm-18 contents">
-            <router-view></router-view>
-          </el-col>
-        </el-row> 
+        <nav class="site__nav-on" v-if="is_nav">
+          <ul id="menu" class="menu">
+            <li class="menu__item menu__item-active">
+              <a href="/" rel="section">
+                <i class="iconfont">&#xe702;</i>Home</a>
+            </li>
+            <li class="menu__item menu__item-archives">
+              <a href="/file" rel="section">
+                <i class="iconfont">&#xe6de;</i>File</a>
+            </li>
+            <li class="menu__item menu__item-archives">
+              <a href="/tag" rel="section">
+                <i class="iconfont">&#xe70c;</i>Tag</a>
+            </li>
+          </ul>
+        </nav>
+        <nav class="site__nav">
+          <ul id="menu" class="menu">
+            <li class="menu__item">
+              <a href="/" rel="section">
+                <i class="iconfont">&#xe703;</i>Home</a>
+            </li>
+            <li class="menu__item">
+              <a href="/file" rel="section">
+                <i class="iconfont">&#xe6df;</i>File</a>
+            </li>
+            <li class="menu__item">
+              <a href="/tag" rel="section">
+                <i class="iconfont">&#xe70d;</i>Tag</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <aside class="sidebar" id="sidebar" :class="{'z-on': is_toggle}">
+      <div class="sidebar__inner">
+        <div class="sidebar__head">jantoChan</div>
+        <nav class="sidebar__nav">
+          <a class="sidebar__nav__item" href="javascript:;" v-for="item in router">
+            <span class="sidebar__nav__item__value">30</span>
+            <span class="sidebar__nav__item__name">{{item.name}}</span>
+          </a> 
+        </nav>
+        <div class="sidebar__links">
+          <span class="sidebar__links__item">
+            <a href="https://github.com/jantoChan" target="_blank" title="GitHub"><i class="iconfont">&#xe69f;</i>GitHub</a>
+          </span>
+          <span class="sidebar__links__item">
+            <a href="mailto:czengtao@163.com" target="_blank" title="E-Mail"><i class="iconfont">&#xe6a0;</i>E-Mail</a>
+          </span>
+        </div>
+      </div> 
+    </aside>
+    <div class="sidebar__toggle" :class="toggleClass" @click="is_toggle=!is_toggle">
+      <span class="sidebar__toggle__line sidebar__toggle__line-first"></span>
+      <span class="sidebar__toggle__line sidebar__toggle__line-middle"></span>
+      <span class="sidebar__toggle__line sidebar__toggle__line-last"></span>
+    </div>
+    <div class="back-to-top" :class="{'z-on': is_back}" @click="backToTop">
+      <i class="iconfont">&#xe97b;</i>
+    </div>    
+    <div class="main">
+      <div class="main__inner">
+        <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-//引入粒子运动插件
-import particles from "particles.js"
-import particlesJson from "assets/json/particles.json"
-
 import "src/main.scss"
 import axios from 'axios'
 
@@ -63,18 +98,26 @@ export default {
   name: 'app',
   data(){
     return{
+      is_back: false,
       is_nav: false,
+      is_toggle: false,
       user: {},
       router: [
-        {to: '/', name: '首页'},
         {to: '/file', name: '归档'},
         {to: '/tag', name: '标签'},
-        {to: '/about', name: '关于我'}
-        // {to: '/article', name: '文章'}
+        {to: '/file', name: '文章'}
       ],
       tagNum: 0,
       articleNum: 0,
       fileNum: 0
+    }
+  },
+  computed: {
+    toggleClass() {
+      return {
+        "z-on": this.is_toggle,
+        "z-toggle": !this.is_toggle
+      }
     }
   },
   methods: {
@@ -109,13 +152,25 @@ export default {
       .catch(function (error) {
         console.error(error);
       });
+    },
+    backToTop() {
+      this.is_back= false;
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   },
   components: {
   },
   mounted() {
     var vm= this;
-    // particlesJS('particles', particlesJson);
+
+    window.onscroll=  () => {
+      var top= document.documentElement.scrollTop;
+      if (top>100) {
+        vm.is_back= true;
+      }else{
+        vm.is_back= false;
+      }
+    };
     vm.getTags();
     vm.getArticles();
     vm.getFiles();

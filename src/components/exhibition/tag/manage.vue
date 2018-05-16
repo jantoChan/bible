@@ -1,20 +1,9 @@
 <template>
   <div class="tag" v-loading.fullscreen.lock="fullscreenLoading">
     <div class="tag__list" v-show="!is_add" v-if="tagList.length > 0 && !fullscreenLoading">
-      <div class="list-item" v-for="(tag, index) in tagList" @click="guideAction(index)">
-        <i class="iconfont list-item__icon">&#xe80b;</i>
-        <div class="list-item__ct">
-          <a class="list-item__header" href="javascript:;" v-text="tag.name"></a>
-          <div class="list-item__description" v-cloak>{{tag.quote}}篇文章</div>
-        </div>
-        <transition name="el-zoom-in-center">
-          <div class="list-item__label" v-show="is_edit">
-            <div class="checkbox">
-              <i class="checkbox__checked iconfont" v-if="tag.is_select">&#xe730;</i>
-              <i class="checkbox__nochecked iconfont" v-else>&#xe72f;</i>
-            </div> 
-          </div>
-        </transition>
+      <div class="tag__total">目前共计{{tagList.length}}个标签</div>
+      <div class="tag__list__item" v-for="(tag, index) in tagList" @click="guideAction(index)">
+        {{tag.name}} 
       </div>
     </div>
     <div class="tag__empty" v-if="tagList.length === 0 && !fullscreenLoading">
@@ -24,7 +13,7 @@
   </div>
 </template>
 <script>
-    import "src/components/admin/tag/index.scss"
+    import "src/components/exhibition/tag/index.scss"
     import axios from 'axios'
 
     export default {

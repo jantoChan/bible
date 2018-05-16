@@ -17,7 +17,6 @@ const files = require('../admin/files')
 const githubs = require('../admin/githubs');
 // const comments = require('./comments')
 
-
 // 一个 API 路由下的 hello 接口，访问 /api/hello
 // router.get('/hello', content.hello);
 
@@ -26,7 +25,7 @@ router.get('/file/list', files.list);
 // router.get('/article/:id', content.article)
 
 //article
-router.get('/article', articles.articleList);
+router.post('/article', articles.articleList);
 router.post('/article/add', articles.add);
 router.post('/article/detail', articles.detail);
 router.post('/article/update', articles.update);

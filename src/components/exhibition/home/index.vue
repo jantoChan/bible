@@ -1,55 +1,87 @@
 <template>
-    <div class="home">
-        <div class="home__card-cont">
-            <div class="home__card-cont__card" v-for="(item, index) in project" :key="index">
-                <div class="cover">
-                    <img :src="item.pic" class="image" :class="{'s-code': !item.isWap}" v-if="!item.isWap">
-                    <span v-else>{{item.title}}</span>
-                </div> 
-                <div class="bottom">
-                    <span class="iconfont" v-if="item.isWap">&#xe603;</span>
-                    <span class="iconfont" v-else>&#xe602;</span>
-                    <span class="iconfont"></span>
-                    <a :href="item.href" target="_blank">{{item.title}}</a> 
-                </div> 
-            </div>
+    <div class="home" v-loading.fullscreen.lock="is_loading">
+      <div class="article" v-for="item in articleList">
+        <div class="article__title">
+          <router-link class="article__title__link" :to="{ path: 'article', query: { articleId: item.objectId }}">{{item.title}}</router-link>
         </div>
+        <div class="article__nav">
+          <span>
+            <i class="iconfont">&#xe6de;</i>
+            {{item.createdAt | dateFormat}}
+          </span>
+          <span>
+            <i class="iconfont">&#xe604;</i>
+            {{item.viewCount}}
+          </span>
+        </div>
+        <div class="article__abstract">
+          {{item.abstract}}
+        </div>
+        <div class="article__more">
+          <router-link class="article__more__button" :to="{ path: 'article', query: { articleId: item.objectId }}">Read More>></router-link>
+        </div>
+        <div class="article__line"></div>
+      </div>
+      <div class="pager" v-if="total">
+        <el-pagination
+          layout="prev, pager, next"
+          :current-page.sync= "page"
+          :page-size= "limit"
+          :total="total">
+        </el-pagination>
+        </div> 
     </div>
 </template>
 
 <script>
 import "components/exhibition/home/index.scss"
 
+import axios from "axios";
 export default {
+  filters: {
+    dateFormat: function (value) {
+      let dateVal= new Date(value);
+      return dateVal.getFullYear() +'-'+ (dateVal.getMonth()+1) +'-' +dateVal.getDate();
+    }
+  },
   name: 'Home',
   data() {
     return {
-        project: [
-            {
-                'isWap': true,
-                'title': '看盘惠州', 
-                'date': '2016-11', 
-                'href': 'http://housemarket.leanapp.cn',
-                'pic': 'http://img.hb.aicdn.com/87cec5c3b74f5b3f3fa48f1d48f4868091295d7a454a-OWoYak_fw658'
-            },
-            {
-                'isWap': false,
-                'title': '博客小程序版',
-                'date': '2017-11',
-                'pic': 'http://img.hb.aicdn.com/f489f3124ca18a06d706da14fd2476a194d14cf016db-nm8fxK_fw658'
-            },
-            {
-                'isWap': true,
-                'title': '作品集',
-                'date': '2018-03',
-                'href': 'http://demos.leanapp.cn'
-
-            }
-        ] 
+        is_loading: false,
+        articleList: [],
+        page: 1,
+        limit: 5,
+        total: 0 
     }
   },
   mounted() {
     let vm= this;
+    vm.getArticles();
+  },
+  methods: {
+    getArticles() {
+      let vm= this;
+      vm.is_loading= true;
+      axios.post('/api/article', {page: vm.page, limit: vm.limit})
+        .then(function (response) {
+          vm.is_loading= false;
+          if (response.status === 200) {
+            vm.articleList= response.data.list;
+            vm.total= response.data.count;
+          }
+        })
+        .catch(function (error) {
+          vm.$message({
+            message: error,
+            type: 'error'
+          });
+        });
+    }
+  },
+  watch: {
+    page() {
+      this.getArticles();
+    }
   }
 }
 </script>

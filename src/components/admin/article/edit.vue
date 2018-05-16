@@ -14,6 +14,9 @@
         编辑标签
       </div>
     </div>
+    <div class="">
+      <el-input type="textarea" v-model="abstract"></el-input>
+    </div>
     <div class="edit__filed">
       <markdown-editor :value="content" @input="handleInput" ref="markdownEditor" preview-class="markdown-body" :configs="configs"></markdown-editor>    
     </div>
@@ -52,7 +55,8 @@
         title,
         tag: [ids],
         contents,
-        is_publish
+        is_issue,
+        abstract
       }
     */
 
@@ -142,6 +146,7 @@
                   let articleAll= response.data;
 
                   vm.title= articleAll['articleDetail']['title'];
+                  vm.abstract= articleAll['articleDetail']['abstract'];
                   vm.content= articleAll['articleDetail']['content'];
 
                   articleAll['tagList'].forEach(function(map) {
@@ -171,6 +176,7 @@
               title: vm.title,
               content: vm.content,
               tags: vm.tagSelect,
+              abstract: vm.abstract,
               is_issue: vm.is_issue
             };
 

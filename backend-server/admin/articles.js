@@ -110,8 +110,12 @@ const pub={
   detail: async(req, res) => {
     let param= req.body;
     let getArticle= (id)=> {
+      let articleInstance=  AV.Object.createWithoutData('Article', id);
+      articleInstance.increment('viewCount', 1);
+      articleInstance.fetchWhenSave(true);
+      articleInstance.save();
       return QueryArticle.get(id);
-    }
+    };
 
     let getTagMap= (id)=> {
       let articleInstance=  AV.Object.createWithoutData('Article', id);
@@ -123,6 +127,7 @@ const pub={
     try{
       let param= req.body;
       let articleDetail= await getArticle(param.id);
+      console.log(articleDetail);
       let tagList= await getTagMap(param.id);
 
       //include无效
@@ -168,10 +173,25 @@ const pub={
   },
 
   articleList(req ,res) {
-      QueryArticle.find().then(function (articles) {
-        res.json(articles);
-      }, function (error) {
-        throw new Error("sorry, we've got a problem ~")
+      let param= req.body;
+      let skip= param.page-1;
+      let limit= param.limit;
+      console.log(param);
+      var now = new Date();
+      QueryArticle.lessThanOrEqualTo('createdAt', now);
+
+      QueryArticle.count().then(function(count) {
+        QueryArticle.addDescending('createdAt');
+        QueryArticle.limit(limit);
+        QueryArticle.skip(skip*limit);
+        QueryArticle.find().then(function (articles) {
+          res.json({
+            count: count,
+            list: articles
+          });
+        }, function (error) {
+          throw new Error("sorry, we've got a problem ~")
+        });
       });
   }
 
