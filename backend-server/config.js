@@ -21,8 +21,8 @@ let config = {
   ],
 
   //github
-  'client_id': '7eb267da27e15f2717b7',
-  'client_secret': 'ea21336e317c9d5eb309e1bed28a000feb9e0273',
+  'client_id': '574b4707eb7c5011c7e0',
+  'client_secret': '25bc929871115cb7e14c948bdb31d16f5a0e5bfd',
   'scope': ['user'],
 
 };

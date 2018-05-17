@@ -1,7 +1,7 @@
 <template>
   <div class="tagDetail" v-loading.fullscreen.lock="is_loading">
     <div class="tagDetail__title">
-      XXX <small>标签</small>
+      {{tagName.name}} <small>标签</small>
     </div>
     <div class="tagDetail__ct g-flex--wrap" v-if="articleList.length>0">
       <div class="list-item" v-for="article in articleList" @click="routeDetail(article['article'].objectId)">
@@ -35,7 +35,8 @@
         return {
           is_loading: false,
           objectId: '',
-          articleList: []
+          articleList: [],
+          tagName: ''
         };
       },
       created() {
@@ -54,7 +55,8 @@
             })
             .then(function (response) {
               vm.is_loading= false;
-              vm.articleList= response.data;
+              vm.articleList= response.data.list;
+              vm.tagName= response.data.name;
 
             })
             .catch(function (error) {

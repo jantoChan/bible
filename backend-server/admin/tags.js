@@ -81,19 +81,43 @@ const pub={
   },
   tagDetail: async(req, res) => {
     let url_param=url.parse(req.url, true).query;
-    console.log(url_param);
     let tagInstance=  AV.Object.createWithoutData('Tag', url_param.id);
+
+    let tagQuery= (id) => {
+      return QueryTag.get(id); 
+    };
+
     QueryMap.equalTo('tag', tagInstance);
     QueryMap.include('article');
     QueryMap.descending('createdAt');
 
     try{
+      let tag = await tagQuery(url_param.id);
 
       QueryMap.find().then(function(articleList) {
         articleList.forEach(function(articleEle) {
           articleEle.set('article', articleEle.get('article') ? articleEle.get('article').toJSON() : null);
         });
-      res.json(articleList);
+      res.json({
+        name: tag,
+        list: articleList
+      });
+      }).catch(function(err){
+      //返回错误给客户端
+      });
+      //include无效
+    } catch (error) {
+
+    }
+  },
+
+  tagCount(req, res) {
+    try{
+
+      QueryTag.count().then(function(count) {
+        res.json({
+          count: count
+        });
       }).catch(function(err){
       //返回错误给客户端
       });

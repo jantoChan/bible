@@ -60,8 +60,8 @@
         <div class="sidebar__head">jantoChan</div>
         <nav class="sidebar__nav">
           <a class="sidebar__nav__item" href="javascript:;" v-for="item in router">
-            <span class="sidebar__nav__item__value">30</span>
-            <span class="sidebar__nav__item__name">{{item.name}}</span>
+            <span class="sidebar__nav__item__value">{{num[item.value]}}</span>
+            <router-link class="sidebar__nav__item__name" :to="{ path: item.to}">{{item.name}}</router-link>
           </a> 
         </nav>
         <div class="sidebar__links">
@@ -103,13 +103,15 @@ export default {
       is_toggle: false,
       user: {},
       router: [
-        {to: '/file', name: '归档'},
-        {to: '/tag', name: '标签'},
-        {to: '/file', name: '文章'}
+        {to: '/', name: '首页', value: 'home'},
+        {to: '/file', name: '文章', value: 'article'},
+        {to: '/tag', name: '标签', value: 'tag'}
       ],
-      tagNum: 0,
-      articleNum: 0,
-      fileNum: 0
+      num: {
+        home: '',
+        article: 0,
+        tag: 0
+      },
     }
   },
   computed: {
@@ -124,9 +126,9 @@ export default {
     getTags() {
       var vm=this;
       //请求api获取用户数据
-      axios.get('/api/tags')
+      axios.get('/api/tags/count')
         .then(function (response) {
-          vm.tagNum= response.data.length;
+          vm.num['tag']= response.data.count;
         })
         .catch(function (error) {
           console.error(error);
@@ -134,20 +136,9 @@ export default {
     },
     getArticles() {
       var vm= this;
-      axios.get('/api/article')
+      axios.get('/api/article/count')
       .then(function (response) {
-        vm.articleNum= response.data.length;
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    },
-    getFiles() {
-      var vm= this;
-      axios.get('/api/file/list')
-      .then(function (response) {
-        //es6 枚举属性
-        vm.fileNum= Object.keys(response.data).length;
+        vm.num['article']= response.data.count;
       })
       .catch(function (error) {
         console.error(error);
@@ -173,7 +164,6 @@ export default {
     };
     vm.getTags();
     vm.getArticles();
-    vm.getFiles();
   }
 }
 </script>

@@ -193,7 +193,23 @@ const pub={
           throw new Error("sorry, we've got a problem ~")
         });
       });
+  },
+
+  count(req, res) {
+    try{
+      QueryArticle.count().then(function(count) {
+        res.json({
+          count: count
+        });
+      }).catch(function(err){
+      //返回错误给客户端
+      });
+      //include无效
+    } catch (error) {
+
+    }
   }
+
 
 }
 

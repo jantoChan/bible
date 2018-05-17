@@ -16,6 +16,10 @@
       color: #9d9d9d;
       background-color: transparent;
       border-bottom: 1px solid #999; 
+
+      &:hover{
+        border-color: #333;
+      }
     }
   }
   &__empty{

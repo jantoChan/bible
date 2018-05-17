@@ -29,14 +29,14 @@ router.post('/article', articles.articleList);
 router.post('/article/add', articles.add);
 router.post('/article/detail', articles.detail);
 router.post('/article/update', articles.update);
+router.get('/article/count', articles.count);
 
 // tags
 router.get('/tags', tags.tagList);
 router.get('/tags/detail', tags.tagDetail);
 router.post('/tags/add', tags.tagAdd);
 router.post('/tags/delete', tags.tagDelete);
-
-// router.get('/tags/:tagId', tags.tagList)
+router.get('/tags/count', tags.tagCount);
 
 // comments
 // router.get('/comments/:articleId', comments.commentsList)
