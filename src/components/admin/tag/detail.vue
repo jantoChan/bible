@@ -10,7 +10,7 @@
          <span class="card__meta__author" v-text="article['article'].author"></span> 
          <span class="card__meta__date" v-cloak>{{article['article'].createdAt | dateFormat}}</span> 
         </div> 
-        <div class="card__abstract" v-text="article['article'].content"> </div>
+        <div class="card__abstract" v-text="article['article'].abstract"> </div>
       </div>
     </div>
     <div class="tagDetail__empty" v-if="!is_loading && articleList.length<=0">
@@ -63,7 +63,7 @@
             })
             .then(function (response) {
               vm.is_loading= false;
-              vm.articleList= response.data;
+              vm.articleList= response.data.list;
 
             })
             .catch(function (error) {

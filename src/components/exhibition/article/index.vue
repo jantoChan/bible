@@ -34,6 +34,7 @@
 
 <script type="text/javascript">
   import "src/components/admin/article/index.scss";
+  import "src/components/exhibition/article/index.scss";
   import axios from "axios";
   import marked from "marked";
   import highlight from 'highlight.js';
@@ -94,6 +95,9 @@
               vm.articleDetail= response['data']['articleDetail'];
               vm.articleContent= marked(response['data']['articleDetail']['content']);
               vm.tagList= response['data']['tagList'];
+
+              // var header= document.querySelectorAll('h2');
+              // console.log(header);
             }
           })
           .catch(function (error) {
