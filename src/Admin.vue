@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="admin">
     <div class="main-cnt main-cnt--admin">
       <div class="page-container page-component">
         <div class="header">
