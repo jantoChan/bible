@@ -15,6 +15,7 @@ const tags = require('../admin/tags')
 const articles = require('../admin/articles')
 const files = require('../admin/files')
 const githubs = require('../admin/githubs');
+const punch= require('./punch-router')
 // const comments = require('./comments')
 
 // 一个 API 路由下的 hello 接口，访问 /api/hello
@@ -49,4 +50,5 @@ router.get('/github/login', githubs.login);
 router.get('/github/access_token', githubs.getToken);
 router.post('/github/user', githubs.getUser);
 
+router.post('/punch', punch);
 module.exports = router;
