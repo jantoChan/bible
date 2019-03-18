@@ -3,7 +3,8 @@ let AV = require('leanengine');
 let Punch = require('./util/Punch');
 let Mailer= require('./util/Mailer')
 // 云函数
-AV.Cloud.define('Punch', function(){
+AV.Cloud.define('Punch', function(res){
+	console.log('准时返工啦-------------------')
 	let TlinkTokenQuery= new AV.Query('TLinkToken');
 	TlinkTokenQuery.descending('createdAt');
 	TlinkTokenQuery.select(['token']);
@@ -17,6 +18,7 @@ AV.Cloud.define('Punch', function(){
 		}else{
 			message=  `打卡成功 --${message}`
 		}
+		res.success();
 		Mailer('TLink打卡', message);
 		// data 就是符合条件的第一个 AV.Object
 	}, function (error) {
