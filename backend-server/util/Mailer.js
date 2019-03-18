@@ -1,7 +1,7 @@
 'use strict';
-const nodemailer = require('nodemailer');
-const Mailer = (subject, ct) => {
-	let transporter = nodemailer.createTransport({
+var nodemailer = require('nodemailer');
+var Mailer = function(subject, ct) {
+	var transporter = nodemailer.createTransport({
 		// host: 'smtp.ethereal.email',
 		service: '163', // 使用了内置传输发送邮件 查看支持列表：https://nodemailer.com/smtp/well-known/
 		port: 465, // SMTP 端口
@@ -12,7 +12,7 @@ const Mailer = (subject, ct) => {
 		}
 	});
 
-	let mailOptions = {
+	var mailOptions = {
 		from: '"chanjanto" <czengtao@163.com>', // sender address
 		to: '310493753@qq.com', // list of receivers
 		subject: subject, // Subject line
@@ -22,7 +22,7 @@ const Mailer = (subject, ct) => {
 	};
 
 // send mail with defined transport object
-	transporter.sendMail(mailOptions, (error, info) => {
+	transporter.sendMail(mailOptions, function(error, info) {
 		if (error) {
 			return console.log(error);
 		}
