@@ -5,7 +5,7 @@ import * as types from './store/types'
 import ElementUI  from 'element-ui'
 import App from './Admin.vue'
 import router from './router'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import './main.scss'
 import { mapState } from 'vuex'
 Vue.use(ElementUI)
