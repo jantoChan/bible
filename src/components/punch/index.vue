@@ -25,7 +25,11 @@
 			        .then(function (response) {
 				        vm.is_loading= false;
 				        if (response.status === 200) {
-
+                            let message= response.data.text;
+					        vm.$message({
+						        message: message,
+						        type: 'success'
+					        });
 				        }
 			        })
 			        .catch(function (error) {
