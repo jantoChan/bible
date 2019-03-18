@@ -13,6 +13,7 @@ AV.Cloud.define('Punch', function(res){
 		Punch(token).end(function(punchErr, punchRes){
 			var code = punchRes.body.data.length;
 			var message = punchRes.message;
+			console.log(punchRes)
 			if (!code){
 				message= '打卡失败了 --'+message;
 			}else{
