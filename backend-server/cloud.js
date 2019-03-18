@@ -10,7 +10,7 @@ AV.Cloud.define('Punch', function(res){
 	TlinkTokenQuery.select(['token']);
 	TlinkTokenQuery.first().then(function(data) {
 		var token= data.attributes.token;
-		Punch(token).end(function(punchRes){
+		Punch(token).end(function(punchErr, punchRes){
 			var code = punchRes.body.data.length;
 			var message = punchRes.message;
 			if (!code){
