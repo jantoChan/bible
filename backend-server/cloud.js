@@ -11,8 +11,8 @@ AV.Cloud.define('Punch', function(res){
 		var token= data.attributes.token;
 		Punch(token).end(function(punchErr, punchRes){
 			console.log('准时返工啦-------------------');
+			console.log(punchRes.body);
 			console.log(token);
-			console.log(punchRes.body)
 			var code = punchRes.body.data.length;
 			var message = punchRes.body.message;
 			if (!code){
