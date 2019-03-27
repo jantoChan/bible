@@ -10,7 +10,7 @@ var app = express();
 var fs = require('fs');
 var config = require('./config');
 var history = require('connect-history-api-fallback');
-
+var ToPunch= require('./ToPunch');
 /* 定义变量 */
 var resolve = file => path.resolve(__dirname, file);
 
@@ -22,7 +22,7 @@ require('babel-core/register');
 
 // 加载云代码方法
 // require('./cloud');
-// 
+//
 // 加载云引擎中间件
 app.use(AV.express());
 
@@ -141,6 +141,7 @@ app.use(function (err, req, res, next) {
 	});
 });
 
-
+//打卡检测
+ToPunch();
 
 module.exports = app;
