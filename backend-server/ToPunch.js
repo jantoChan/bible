@@ -2,6 +2,7 @@ let AV = require('leanengine');
 
 let Punch = require('./util/Punch');
 let Mailer= require('./util/Mailer');
+let autoLogin = require('./util/autoLogin');
 const punchAndMail= function (token) {
 	Punch(token).end(function(punchErr, punchRes){
 		console.log('准时返工啦-------------------');
@@ -19,11 +20,7 @@ const punchAndMail= function (token) {
 const ToPunch= function(){
 	// 声明一个 TLinkCounter 类型
 	var TLinkCounter = AV.Object.extend('TLinkCounter');
-
-	var TlinkTokenQuery= new AV.Query('TLinkToken');
 	var TLinkCounterQuery= new AV.Query('TLinkCounter');
-	TlinkTokenQuery.descending('createdAt');
-	TlinkTokenQuery.select(['token']);
 	TLinkCounterQuery.descending('createdAt');
 	var nowDate= new Date();
 	var years= nowDate.getFullYear();
@@ -37,10 +34,10 @@ const ToPunch= function(){
 	var punchTimeD= new Date(`${years}/${months}/${days} 19:30`);
 	var isTime= (nowDate>punchTimeA && nowDate<punchTimeB) || (nowDate>punchTimeC && nowDate<punchTimeD);
 
-	if (isTime) {
+	if (!isTime) {
 		TLinkCounterQuery.first().then(function (counter) {
-			TlinkTokenQuery.first().then(function(data) {
-				var token= data.attributes.token;
+			autoLogin().end(function(err, data) {
+				var token= data.body.data.accessToken;
 				if (counter && (counter.attributes.date === date)) {
 					if (counter.attributes.counter>2) return false;
 					//存在数据且打卡数不超过2次更新,并打卡

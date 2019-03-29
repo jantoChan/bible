@@ -1,14 +1,12 @@
 let AV = require('leanengine');
 
 let Punch = require('./util/Punch');
-let Mailer= require('./util/Mailer')
+let Mailer= require('./util/Mailer');
+let autoLogin = require('./util/autoLogin');
 // 云函数
 AV.Cloud.define('Punch', function(res){
-	var TlinkTokenQuery= new AV.Query('TLinkToken');
-	TlinkTokenQuery.descending('createdAt');
-	TlinkTokenQuery.select(['token']);
-	TlinkTokenQuery.first().then(function(data) {
-		var token= data.attributes.token;
+	autoLogin().end(function(err, data) {
+		var token= data.body.data.accessToken;
 		Punch(token).end(function(punchErr, punchRes){
 			console.log('准时返工啦-------------------');
 			console.log(punchRes.body);
@@ -22,8 +20,5 @@ AV.Cloud.define('Punch', function(res){
 			}
 			Mailer('TLink打卡', message);
 		});
-		// data 就是符合条件的第一个 AV.Object
-	}, function (error) {
-
-	});
+	})
 });
