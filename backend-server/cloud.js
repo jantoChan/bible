@@ -1,11 +1,10 @@
-let AV = require('leanengine');
+var AV = require('leanengine');
 
-let Punch = require('./util/Punch');
-let Mailer= require('./util/Mailer');
-let autoLogin = require('./util/autoLogin');
+var Punch = require('./util/Punch');
+var Mailer= require('./util/Mailer');
 // 云函数
 AV.Cloud.define('Punch', function(res){
-	autoLogin().end(function(err, data) {
+	TlinkTokenQuery().end(function(err, data) {
 		var token= data.body.data.accessToken;
 		Punch(token).end(function(punchErr, punchRes){
 			console.log('准时返工啦-------------------');
@@ -15,6 +14,7 @@ AV.Cloud.define('Punch', function(res){
 			var message = punchRes.body.message;
 			if (!code){
 				message= '打卡失败了 --'+message;
+				//触发autoLogin,自动打卡
 			}else{
 				message=  '打卡成功 --'+message;
 			}

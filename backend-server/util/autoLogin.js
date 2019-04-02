@@ -1,13 +1,43 @@
-var request = require('superagent');
+var fetch = require("node-fetch");
+var HttpsProxyAgent = require('https-proxy-agent');
+var { URLSearchParams } = require('url');
+var Punch = require('./Punch');
+var Mailer= require('./Mailer');
 var autoLogin = function() {
-	var params = {
-		appVersion: '1.0.14',
-		osVersion: '12.1',
-		secretKey: 'v4.0|iDFnvD+VwITbisWYeno81bORif9+yw1q+k67pKoxAYzy3uT0YQ4q4sN+SJs9Yg+y76VhX5RYu7cRKB7zcug3QY960tY3AXBL9RnxGQe41Yo0i+shUJGzWspfWEGJrLTnn5U2MPDx0K1Y8PKdnQGB9FuK36ChPi9J3+EYgkL5+CQSA7gkcZTtsKc0CwG4yHYnZmBishhmlz015VXwkrmtwKBALF86cNKOVU6qyCgLt2jYGgAjE85Dwxmo1yb41dzBBahEuOjMnZ5uVfwuZwJnZD7wsnm1vk/goXSf6IkJASBxYxwRQh0DItPL3fzif0qu8fAyWt6OPJ6WUjCZBvBdq0uMBXYSqb6CZ2R5Lk9MP8KTpfwmBwlBBIMgcWQ3iJOJGPe9KIKO2/C+RJ6VdiLNkmY2c70duh8L+Y3RdmkP/fPoM1ohK3SOo+FYBsRYByY8Mz0t6rAT1yBTSLDmv47iGUbC5vwjoDb3XEe8PzKVnuxdv7u7Ble9yJ2AEzmoj3t/Vwu0hlXkXXH7yBMproWtrEKPOuqOegynfftIGcYm/Xy38Yi0EOr9aKrEaUoyIAiiQY5u/s7DTwsV3IkumCFTTWNV2p/JOVK4eofSRJJNK4KlrEV1143GRuZAWZKTX49aH792Vqz+GdE51c5B8rSTPyu1Y1iIScqdE3DHWyx93hs=',
-		sign: '27a0637645f4a89f8d16d6f726b931d8'
-	};
-	return request.post('http://tmtapp.tcl.com/mam-api/user/autologin')
-		.set('Content-Type', 'application/x-www-form-urlencoded')
-		.send(params);
+	var params = new URLSearchParams();
+	params.append('appVersion', '1.0.14');
+	params.append('secretKey', 'v4.0|tUKirc3cguFi9VjFGd4U405M7SCP30ugMxqqIrjDBrg24vo2jucblhA5vbiT2ueTQaeDT5oZtM/Qa5x4xbA86NMlnKJzv78RhNGx1oVy/BS5JloIMjbdmwN6azgc74hBwskjbWzcamhev2FntleGAAnx341i0kETHwAeyLKlnS2IB4gLVxnc0hJ3cHw99AGPrLC3v6tGmFkSTWkWvSPXEhkOIll9FJmKU0UOxikjZ0yNeR57/w0wpoi2Q5GJlH8ZpdvJLe8x2l9ZWIHZfTGZ1jXvwxT+UsaGmYJMdeXTiUaDvB8eJIkWYDyk3RH4cjWDcJsjxi/zdYxqT0UfYcH3MIF9hyEaAPvgaqzPws2no+icpUC5JiN8p84H+auNzn2H1a+3drg4F1DwUsb5HCJZg+vmGOx+JRIVDng7+thzcXqw2tFEdaeEuU5ZHMyzgxgSBeLChewxBUrRY1AwRT7OUCHmixiNg5X6gijb1b85VI0LhWX5qy1CGrbq0fUW01ZPM7oflf7tSVvi9Dc58OxlL5rYSUesREZx298WygNzcJxflkWT4fETlDxO+RMBCraq2RqhVl3tf97E8zjBfEabHhAQsXpHpKgvX9NcFyY4/xcWAJ/ISdviJEJcA48iSkEuHAezbEqPj+QjNH2gYuODxBgH6wqXsdHn+Tsymm71Lek=');
+	params.append('osVersion', '12.1');
+	params.append('sign', '5067c7696eddf45a63515fe6a5394faf');
+	var url="https://tmtapp.tcl.com/mam-api/user/autologin";
+	var ip='123.56.74.221';
+	var port='80';
+	fetch(url, {
+		method: 'POST',
+		body: params,
+		redirect: 'follow',  // set to `manual` to extract redirect headers, `error` to reject redirect
+		timeout: 10000,      //ms
+		agent: new HttpsProxyAgent("http://" + ip + ":" + port) //<==注意是 `http://`
+	}).then(function (res) {
+		console.log("Response Headers ============ ");
+		res.headers.forEach(function(v,i,a) {
+			console.log(i+" : "+v);
+		});
+		return res.text();
+	}).then(function (res) {
+		console.log("Response Body ============ ");
+		var resObj= JSON.parse(res);
+		var token = resObj.data.accessToken;
+		Punch(token).end(function(punchErr, punchRes){
+			var code = punchRes.body.data.length;
+			var message = punchRes.body.message;
+			if (!code){
+				message= '自动登录打卡失败了 --'+message;
+			}else{
+				message=  '自动登录打卡成功 --'+message;
+			}
+			Mailer('TLink打卡', message);
+		});
+	});
 };
 module.exports = autoLogin;
