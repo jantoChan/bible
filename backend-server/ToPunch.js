@@ -39,7 +39,7 @@ const ToPunch= function(){
 	var punchTimeD= new Date(`${years}/${months}/${days} 19:30`);
 	var isTime= (nowDate>punchTimeA && nowDate<punchTimeB) || (nowDate>punchTimeC && nowDate<punchTimeD);
 
-	if (!isTime) {
+	if (isTime) {
 		TLinkCounterQuery.first().then(function (counter) {
 			TlinkTokenQuery.first().then(function(err, data) {
 				console.log('------------------------err')
