@@ -5,7 +5,7 @@ var AV = require('leanengine');
 var ejs = require('ejs');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var FileStore = require('session-file-store')(session);
+// var FileStore = require('session-file-store')(session);
 var app = express();
 var fs = require('fs');
 var config = require('./config');
@@ -84,6 +84,7 @@ app.use(history({
 // api 接口
 app.all('/api/*', (req, res, next) => {
 	const origin = req.headers.origin;
+	console.log(origin)
 	if (config.whiteOrigins.indexOf(origin) !== -1) {
 		res.header('Access-Control-Allow-Origin', origin);
 		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');

@@ -17,7 +17,9 @@ let config = {
     'http://localhost:3003',
     // 以下两个是在 LeanCloud 中配置的 host，xxx 替换为自己的域名
     'http://stg-bible.leanapp.cn',
-    'http://bible.leanapp.cn'
+    'http://bible.leanapp.cn',
+    'https://tmtapp.tcl.com',
+	'http://tmtapp.tcl.com'
   ],
 
   //github

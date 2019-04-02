@@ -11,6 +11,8 @@ const punchAndMail= function (token) {
 		var message = punchRes.body.message;
 		if (!code){
 			message= '打卡失败了 --'+message;
+			//触发自动登录以及打卡
+			autoLogin();
 		}else{
 			message=  '打卡成功 --'+message;
 		}
@@ -18,10 +20,13 @@ const punchAndMail= function (token) {
 	});
 };
 const ToPunch= function(){
-	// 声明一个 TLinkCounter 类型
-	var TLinkCounter = AV.Object.extend('TLinkCounter');
 	var TLinkCounterQuery= new AV.Query('TLinkCounter');
 	TLinkCounterQuery.descending('createdAt');
+
+	var TlinkTokenQuery= new AV.Query('TLinkToken');
+	TlinkTokenQuery.descending('createdAt');
+	TlinkTokenQuery.select(['token']);
+
 	var nowDate= new Date();
 	var years= nowDate.getFullYear();
 	var months= nowDate.getMonth()+1;
@@ -34,10 +39,14 @@ const ToPunch= function(){
 	var punchTimeD= new Date(`${years}/${months}/${days} 19:30`);
 	var isTime= (nowDate>punchTimeA && nowDate<punchTimeB) || (nowDate>punchTimeC && nowDate<punchTimeD);
 
-	if (!isTime) {
+	if (isTime) {
 		TLinkCounterQuery.first().then(function (counter) {
-			autoLogin().end(function(err, data) {
-				var token= data.body.data.accessToken;
+			TlinkTokenQuery.first().then(function(err, data) {
+				console.log('------------------------err')
+				console.log(err);
+				console.log('-----------------------data')
+				console.log(data)
+				var token= data.attributes.token;
 				if (counter && (counter.attributes.date === date)) {
 					if (counter.attributes.counter>2) return false;
 					//存在数据且打卡数不超过2次更新,并打卡
